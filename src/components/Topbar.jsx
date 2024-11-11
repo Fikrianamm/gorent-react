@@ -1,6 +1,6 @@
 import { categories } from "../utils/data";
-import Avatar from "./avatar";
-import Lokasi from "./lokasi";
+import Avatar from "./Avatar";
+import Lokasi from "./Lokasi";
 
 import "../index.css";
 import { Dropdown } from "react-bootstrap";
