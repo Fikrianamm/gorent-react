@@ -1,5 +1,5 @@
-import ProductCard from "../components/productCard";
-import Topbar from "../components/topbar";
+import Topbar from "../components/Topbar";
+import ProductCard from "../components/ProductCard";
 import { products } from "../utils/data";
 
 export default function HomePage() {
