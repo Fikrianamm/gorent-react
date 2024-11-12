@@ -5,11 +5,13 @@ const CardWrapper = styled.a`
   display: block;
   user-select: none;
   background-color: white;
+  border-radius: 8px;
+  height: 100%;
 `;
 
 const Card = styled.div`
   border: 1px solid #eee;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
   height: 100%;
@@ -22,32 +24,39 @@ const Card = styled.div`
 
 const ProductImage = styled.img`
   width: 100%;
-  height: 200px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 `;
 
 const ContentWrapper = styled.div`
-  padding: 1rem;
+  padding: 12px;
 `;
 
 const ProductTitle = styled.h3`
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin: 0 0 8px 0;
   color: #333;
   text-decoration: none;
 `;
 
-const PriceWrapper = styled.p`
-  font-weight: 600;
-  color: #333;
+const PriceWrapper = styled.div`
+  display: flex;
+  align-items: baseline;
   margin-bottom: 4px;
 `;
 
+const Price = styled.span`
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+`;
+
 const PricePeriod = styled.span`
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: #666;
   font-weight: normal;
+  margin-left: 4px;
 `;
 
 const RatingWrapper = styled.div`
@@ -56,30 +65,46 @@ const RatingWrapper = styled.div`
 `;
 
 const StarRating = styled.div`
-  color: #ffc107;
-  font-size: 0.9rem;
-  margin-right: 0.25rem;
+  color: #FFD700;
+  font-size: 0.875rem;
+  margin-right: 4px;
+  display: flex;
+`;
+
+const Star = styled.span`
+  color: ${props => props.filled ? '#FFD700' : '#DDD'};
 `;
 
 const RatingCount = styled.span`
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 `;
+
+// Komponen untuk menampilkan rating bintang
+const StarRatingDisplay = ({ rating }) => {
+  return (
+    <StarRating>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star key={star} filled={star <= rating}>★</Star>
+      ))}
+    </StarRating>
+  );
+};
 
 export default function ProductCard({ product }) {
   return (
-    <CardWrapper href={product.id} className='col-6 col-md-4 col-lg-3 col-xl-2'>
+    <CardWrapper href={product.id} className='w-100'>
       <Card>
         <ProductImage src={product.image} alt={product.name} />
         <ContentWrapper>
           <ProductTitle>{product.name}</ProductTitle>
           <PriceWrapper>
-            Rp{product.pricePerDay.toLocaleString()}{" "}
+            <Price>Rp{product.pricePerDay.toLocaleString()}</Price>
             <PricePeriod>/hari</PricePeriod>
           </PriceWrapper>
           <RatingWrapper>
-            <StarRating>★★★★★</StarRating>
-            <RatingCount>(11)</RatingCount>
+            <StarRatingDisplay rating={5} />
+            <RatingCount>({product.ratingCount || 11})</RatingCount>
           </RatingWrapper>
         </ContentWrapper>
       </Card>

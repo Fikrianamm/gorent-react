@@ -1,10 +1,16 @@
 import Topbar from "../components/Topbar";
 import ProductCard from "../components/ProductCard";
 import { products } from "../utils/data";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function HomePage() {
   return (
-    <>
+    <div className="pb-5">
       <Topbar />
       <div className="container">
         {/* <!-- Terlaris Section start --> */}
@@ -14,9 +20,33 @@ export default function HomePage() {
             <h2 className="text-white fw-bold w-50">Paling Banyak Disewa</h2>
           </div>
           <div className="scroll-container bg-transparent d-flex gap-3 pb-3 overflow-x-auto hidden-scroll">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            <Swiper
+              modules={[Autoplay]}
+              spaceBetween={16}
+              slidesPerView={2}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                // ketika lebar window >= 768px
+                768: {
+                  slidesPerView: 3,
+                },
+                // ketika lebar window >= 1024px
+                992: {
+                  slidesPerView: 4,
+                },
+              }}
+            >
+              {products.map((product) => (
+                <SwiperSlide key={product.id}>
+                  <div className="w-100 bg-transparent" >
+                    <ProductCard product={product} />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
         {/* <!-- Terlaris Section end --> */}
@@ -26,12 +56,14 @@ export default function HomePage() {
           <h2 className="section-title">Rekomendasi</h2>
           <div className="row g-3">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <div key={product.id} className="col-6 col-md-4 col-lg-3">
+                <ProductCard product={product} />
+              </div>
             ))}
           </div>
         </div>
         {/* <!-- Rekomendasi Section end --> */}
       </div>
-    </>
+    </div>
   );
 }

@@ -2,15 +2,14 @@ import { categories } from "../utils/data";
 import Avatar from "./Avatar";
 import Lokasi from "./Lokasi";
 
-import "../index.css";
-import { Dropdown } from "react-bootstrap";
+import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import styled from "styled-components";
 import { useState } from "react";
 
 const CategoryWrapper = styled.div`
   display: none;
   margin-right: 1rem;
-  
+
   @media (min-width: 768px) {
     display: flex;
     align-items: center;
@@ -25,7 +24,7 @@ const StyledDropdown = styled(Dropdown)`
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 1px solid #eee;
     margin-top: 0;
-    display: ${props => props.isHovered ? 'block' : 'none'} !important;
+    display: ${(props) => (props.isHovered ? "block" : "none")} !important;
   }
 `;
 
@@ -34,12 +33,12 @@ const StyledToggle = styled(Dropdown.Toggle)`
   border: none !important;
   padding: 0;
   color: black;
-  
+
   &:after {
     color: black;
     display: none;
   }
-  
+
   &:hover,
   &:focus,
   &:active {
@@ -63,30 +62,28 @@ const StyledOption = styled(Dropdown.Item)`
 
 function Kategori() {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-  
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
 
   return (
     <CategoryWrapper>
-      <StyledDropdown 
+      <StyledDropdown
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         isHovered={isHovered}
       >
-        <StyledToggle>
-          Kategori
-        </StyledToggle>
-        
+        <StyledToggle>Kategori</StyledToggle>
+
         <Dropdown.Menu>
           <DropdownItemWrapper>
             {categories.map((category) => (
-              <StyledOption 
+              <StyledOption
                 key={category.id}
                 onClick={() => {
                   // Add your click handler here
@@ -103,7 +100,47 @@ function Kategori() {
   );
 }
 
+function CenterModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Filter</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="d-flex flex-column gap-2">
+        <div className="d-flex justify-content-between align-items-center">
+          <label htmlFor="categoryDropdown ">Kategori</label>
+          <Form.Select className="w-50">
+            <option>Pilih kategori</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
+          </Form.Select>
+        </div>
+        <div className="d-flex justify-content-between align-items-center">
+          <label htmlFor="categoryDropdown ">Kondisi</label>
+          <Form.Select className="w-50">
+            <option>Pilih kondisi</option>
+            <option value='1'>Sangat baik</option>
+            <option value='2'>Baik</option>
+            <option value='3'>Layak pakai</option>
+          </Form.Select>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button className="w-100"> Filter </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 export default function Topbar() {
+  const [modalShow, setModalShow] = useState(false);
+
   return (
     <div className="container-fluid">
       <div className="d-flex justify-content-between container-fluid mt-4 align-items-end d-md-none">
@@ -133,68 +170,18 @@ export default function Topbar() {
           </div>
         </div>
         <div className="d-flex gap-3">
-          <button
-            className="btn btn-light d-md-none"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#filter"
+          <Button
+            className="d-md-none"
+            variant="light"
+            onClick={() => setModalShow(true)}
           >
             <i className="bi bi-filter"></i>
-          </button>
+          </Button>
           <button className="btn btn-light">
             <i className="bi bi-bag"></i>
           </button>
 
-          {/* <!-- Modal Filter start --> */}
-          <div
-            className="modal fade"
-            id="filter"
-            tabIndex="-1"
-            aria-labelledby="filterLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="filterLabel">
-                    Filter
-                  </h1>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body d-flex flex-column gap-2">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <label htmlFor="categoryDropdown ">Kategori</label>
-                    <select className="form-control w-50" id="categoryDropdown">
-                      <option disabled>Pilih kategori</option>
-                      {categories.forEach((category) => (
-                        <option>{category.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <label htmlFor="categoryDropdown ">Kondisi</label>
-                    <select className="form-control w-50" id="categoryDropdown">
-                      <option disabled>Pilih kondisi</option>
-                      <option>Sangat baik</option>
-                      <option>Baik</option>
-                      <option>Layak pakai</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-primary w-100">
-                    Filter
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* <!-- Modal Filter end --> */}
+          <CenterModal show={modalShow} onHide={() => setModalShow(false)} />
 
           <div className="d-none d-md-flex">
             <Avatar />
