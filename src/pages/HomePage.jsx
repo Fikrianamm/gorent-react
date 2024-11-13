@@ -7,6 +7,30 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import styled from "styled-components";
+
+const TerlarisTitle = styled.div`
+  background: #2d83b2;
+  padding: 70px 24px;
+  width: 300px;
+  height: 308px;
+`;
+
+const SectionTitle = styled.div`
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+const ScrollContainer = styled.div`
+  background-color: transparent;
+
+  @media screen and (min-width: 768px) {
+    position: relative;
+    right: 20px;
+    top: 30px;
+  }
+`;
 
 export default function HomePage() {
   return (
@@ -14,12 +38,12 @@ export default function HomePage() {
       <Topbar />
       <div className="container">
         {/* <!-- Terlaris Section start --> */}
-        <div className="mb-4 mt-4 d-md-flex terlaris-section">
-          <h2 className="section-title d-md-none">Terlaris</h2>
-          <div className="terlaris-title d-none d-md-flex mb-5 align-items-center rounded-4">
+        <div className="mb-4 mt-4 d-md-flex position-relative">
+          <SectionTitle className="d-md-none">Terlaris</SectionTitle>
+          <TerlarisTitle className="d-none d-md-flex mb-5 align-items-center rounded-4">
             <h2 className="text-white fw-bold w-50">Paling Banyak Disewa</h2>
-          </div>
-          <div className="scroll-container bg-transparent d-flex gap-3 pb-3 overflow-x-auto hidden-scroll">
+          </TerlarisTitle>
+          <ScrollContainer className="d-flex gap-3 pb-3 overflow-x-auto hidden-scroll">
             <Swiper
               modules={[Autoplay]}
               spaceBetween={16}
@@ -41,19 +65,19 @@ export default function HomePage() {
             >
               {products.map((product) => (
                 <SwiperSlide key={product.id}>
-                  <div className="w-100 bg-transparent" >
+                  <div className="w-100 bg-transparent">
                     <ProductCard product={product} />
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
+          </ScrollContainer>
         </div>
         {/* <!-- Terlaris Section end --> */}
 
         {/* <!-- Rekomendasi Section start --> */}
         <div>
-          <h2 className="section-title">Rekomendasi</h2>
+          <SectionTitle>Rekomendasi</SectionTitle>
           <div className="row g-3">
             {products.map((product) => (
               <div key={product.id} className="col-6 col-md-4 col-lg-3">

@@ -5,6 +5,7 @@ import Lokasi from "./Lokasi";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import styled from "styled-components";
 import { useState } from "react";
+import Logo from "./Logo";
 
 const CategoryWrapper = styled.div`
   display: none;
@@ -58,6 +59,20 @@ const StyledOption = styled(Dropdown.Item)`
     background-color: #f8f9fa;
   }
   padding: 8px 12px;
+`;
+
+const SearchContainer = styled.div`
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 8px 16px;
+`;
+
+const SearchInput = styled.input`
+  border: none;
+  background: transparent;
+  width: 100%;
+  outline: none;
+  padding: 4px;
 `;
 
 function Kategori() {
@@ -117,7 +132,9 @@ function CenterModal(props) {
           <Form.Select className="w-50">
             <option>Pilih kategori</option>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
             ))}
           </Form.Select>
         </div>
@@ -125,9 +142,9 @@ function CenterModal(props) {
           <label htmlFor="categoryDropdown ">Kondisi</label>
           <Form.Select className="w-50">
             <option>Pilih kondisi</option>
-            <option value='1'>Sangat baik</option>
-            <option value='2'>Baik</option>
-            <option value='3'>Layak pakai</option>
+            <option value="1">Sangat baik</option>
+            <option value="2">Baik</option>
+            <option value="3">Layak pakai</option>
           </Form.Select>
         </div>
       </Modal.Body>
@@ -151,24 +168,18 @@ export default function Topbar() {
 
       {/* <!-- Header with Search and Icons --> */}
       <div className="container-fluid d-flex justify-content-between align-items-center mb-md-0 mt-4">
-        <img
-          className="d-none d-md-inline img-fluid logo-goRent me-3"
-          src="/assets/images/GoRent.png"
-          alt="logo GoRent"
-        />
+        <div className="d-none d-md-inline">
+          <Logo />
+        </div>
 
         <Kategori />
 
-        <div className="search-container flex-grow-1 me-3">
+        <SearchContainer className="flex-grow-1 me-3">
           <div className="d-flex align-items-center">
             <i className="bi order-md-last bi-search me-2 text-muted"></i>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Cari Produk"
-            />
+            <SearchInput type="text" placeholder="Cari Produk" />
           </div>
-        </div>
+        </SearchContainer>
         <div className="d-flex gap-3">
           <Button
             className="d-md-none"
