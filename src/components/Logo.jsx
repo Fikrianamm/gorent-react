@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 const LogoImg = styled.img`
@@ -11,12 +12,12 @@ const LogoImg = styled.img`
 
 export default function Logo() {
   return (
-    <>
+    <Link to={'/'}>
      <LogoImg
           className="img-fluid me-3"
           src="/assets/images/GoRent.png"
           alt="logo GoRent"
         /> 
-    </>
+    </Link>
   )
 }

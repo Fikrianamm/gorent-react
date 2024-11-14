@@ -93,7 +93,7 @@ const StarRatingDisplay = ({ rating }) => {
 
 export default function ProductCard({ product }) {
   return (
-    <CardWrapper href={product.id} className='w-100'>
+    <CardWrapper href={`/product/${product.id}`} className='w-100'>
       <Card>
         <ProductImage src={product.image} alt={product.name} />
         <ContentWrapper>

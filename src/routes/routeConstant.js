@@ -3,13 +3,19 @@ import SignInPage from "../pages/SignInPage";
 import SignUpPage from "../pages/SignUpPage";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
+import ProductPage from "../pages/ProductPage";
 
 export const ERROR_PAGE = "*";
 export const HOME_PAGE = "/";
 export const SIGNIN_PAGE = "/signin";
 export const SIGNUP_PAGE = "/signup";
+export const PRODUCT_PAGE = "/product/:productId";
 
 export const router = createBrowserRouter([
+  {
+    path: ERROR_PAGE,
+    Component: ErrorPage,
+  },
   {
     path: HOME_PAGE,
     Component: HomePage,
@@ -23,7 +29,7 @@ export const router = createBrowserRouter([
     Component: SignUpPage,
   },
   {
-    path: ERROR_PAGE,
-    Component: ErrorPage,
+    path: PRODUCT_PAGE,
+    Component: ProductPage,
   },
 ]);
