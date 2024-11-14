@@ -4,12 +4,6 @@ import { products } from "../utils/data";
 import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 
-const ProductImage = styled.img`
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-`;
-
 const ImageZoom = styled.img`
   max-height: 90vh;
   width: auto;
@@ -57,6 +51,23 @@ const SectionTitle = styled.h2`
   font-weight: 600;
   margin-bottom: 1rem;
 `;
+
+const OrderSection = styled.div`
+    background-color: #F4F6FF;
+    padding: 1rem;
+    border-radius: 8px;
+` 
+const ButtonOrder = styled.button`
+    background-color: #2D83B2;
+    color: white;
+    font-weight: 600;
+    transition: all .5s ease-in-out;
+    
+    &:hover{
+        background-color: #2978a3;
+        color: white;
+    }
+`
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -138,6 +149,7 @@ export default function ProductPage() {
             </div>
           </div>
 
+        {/* Product Detail Section */}
           <p>{product.description}</p>
           <div className="d-flex flex-column gap-2">
             <h3 className="fw-semibold fs-5">Detail Produk</h3>
@@ -158,6 +170,22 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
+
+        {/* Order Section */}
+        <OrderSection>
+          <div className="container d-flex justify-content-between align-items-center">
+            <div>
+              <h6 className="mb-0 fw-bold fs-5">{product.name}</h6>
+              <p className="mb-0 fs-6 fw-semibold">
+                Rp{product.pricePerDay.toLocaleString()} /hari
+              </p>
+            </div>
+            <ButtonOrder className="btn">Sewa Produk</ButtonOrder>
+          </div>
+        </OrderSection>
+        
+
+        {/* Recomended Product Section */}
           <div>
             <SectionTitle>Rekomendasi lainnya</SectionTitle>
             <div className="row g-3">
@@ -199,7 +227,7 @@ export default function ProductPage() {
 
           <p>{product.description}</p>
 
-          {/* detail produk section */}
+          {/* Detail Produk Section */}
           <h3 className="fw-semibold fs-5 mb-4">Detail Produk</h3>
           <div className="d-flex flex-column gap-3">
             <div className="border-1 border-bottom d-flex justify-content-between w-100">
@@ -272,7 +300,7 @@ export default function ProductPage() {
                 Rp{product.pricePerDay.toLocaleString()} /hari
               </p>
             </div>
-            <button className="btn btn-primary">Sewa Produk</button>
+            <ButtonOrder className="btn">Sewa Produk</ButtonOrder>
           </div>
         </div>
       </div>
