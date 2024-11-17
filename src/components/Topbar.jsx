@@ -6,6 +6,7 @@ import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import styled from "styled-components";
 import { useState } from "react";
 import Logo from "./Logo";
+import { MyButton } from "./Button";
 
 const CategoryWrapper = styled.div`
   display: none;
@@ -149,7 +150,7 @@ function CenterModal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="w-100"> Filter </Button>
+        <MyButton variant={"primary-btn"} className="w-100"> Filter </MyButton>
       </Modal.Footer>
     </Modal>
   );

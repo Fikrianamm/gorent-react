@@ -1,6 +1,45 @@
 import { useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import styled from "styled-components";
+import { MyButton } from "./Button";
+
+const CustomToggle = styled(Dropdown.Toggle)`
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  font-weight: 600;
+  color: black;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.show {
+    color: black;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+`;
+
+const CustomButton = styled(Button)`
+  display: flex;
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  padding: 0;
+  gap: 1rem;
+  color: black;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.show {
+    color: black;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+`;
 
 function CenterModal(props) {
   return (
@@ -23,8 +62,10 @@ function CenterModal(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="light" onClick={props.onHide}>Tutup</Button>
-        <Button> Simpan </Button>
+        <Button variant="light" onClick={props.onHide}>
+          Tutup
+        </Button>
+        <MyButton variant={"primary-btn"}> Simpan </MyButton>
       </Modal.Footer>
     </Modal>
   );
@@ -32,44 +73,6 @@ function CenterModal(props) {
 
 export default function Lokasi({ direction = "vertical" }) {
   const [modalShow, setModalShow] = useState(false);
-
-  const CustomToggle = styled(Dropdown.Toggle)`
-    background-color: transparent;
-    padding: 0;
-    border: 0;
-    font-weight: 600;
-    color: black;
-
-    &:hover,
-    &:focus,
-    &:active,
-    &.show {
-      color: black;
-      background-color: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-    }
-  `;
-
-  const CustomButton = styled(Button)`
-    display: flex;
-    background-color: transparent;
-    border: none;
-    font-weight: 600;
-    padding: 0;
-    gap: 1rem;
-    color: black;
-
-    &:hover,
-    &:focus,
-    &:active,
-    &.show {
-      color: black;
-      background-color: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-    }
-  `;
 
   switch (direction) {
     case "vertical":
@@ -86,9 +89,9 @@ export default function Lokasi({ direction = "vertical" }) {
               <Form className="mx-2 my-2">
                 <Form.Group className="d-flex flex-column gap-2">
                   <Form.Control placeholder="Lokasi Anda" />
-                  <Button type="submit" className="btn btn-primary w-100 ">
+                  <MyButton variant={"primary-btn"} type="submit" className="w-100">
                     Simpan
-                  </Button>
+                  </MyButton>
                 </Form.Group>
               </Form>
             </Dropdown.Menu>

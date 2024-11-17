@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Container, Row, Col, Button, Card, Form } from "react-bootstrap";
+import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { products } from "../utils/data";
+import Topbar from "../components/Topbar";
+import { Back, MyButton } from "../components/Button";
 
 // Constants
 const APPLICATION_FEE = 5000;
@@ -10,7 +12,14 @@ const APPLICATION_FEE = 5000;
 // Styled Components
 const CheckoutContainer = styled(Container)`
   margin-top: 20px;
-  position: relative;
+  padding-bottom: 80px;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
 `;
 
 const SectionTitle = styled.h6`
@@ -18,37 +27,21 @@ const SectionTitle = styled.h6`
   margin-top: 20px;
 `;
 
-const PriceDetail = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #dee2e6;
-  padding-bottom: 0.5rem;
-`;
-
-const CustomButton = styled(Button)`
+const PriceDetailTable = styled.div`
   width: 100%;
-  background-color: #2d83b2;
-  border-color: #2d83b2;
+  border-collapse: collapse;
 
-  &:hover {
-    background-color: #2a79a3;
+  div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #dee2e6;
   }
 `;
 
-const DurationButton = styled(Button)`
-  &&& {
-    margin: 5px 5px 10px 0;
-    background-color: ${(props) => (props.active ? "#2D83B2" : "white")};
-    color: ${(props) => (props.active ? "white" : "#949494")};
-    border-color: #949494;
-  }
-  
-  &&&:hover {
-    background-color: #2d83b2;
-    color: white;
-  }
-
+const TotalRow = styled.div`
+  font-weight: bold;
+  font-size: 1rem;
 `;
 
 const ImgContainer = styled.div`
@@ -102,105 +95,117 @@ export default function CheckoutPage() {
   const calculateTotal = () => calculateSubtotal() + APPLICATION_FEE;
 
   return (
-    <CheckoutContainer>
-      <div className="d-flex gap-3 align-items-center">
-        <a href="/" className="text-black fs-5">
-          <i className="bi bi-arrow-left"></i>
-        </a>
-        <h5 className="m-0">Check Out</h5>
+    <>
+      <div className="d-none d-md-inline">
+        <Topbar />
       </div>
-      <Row>
-        <Col>
-          <SectionTitle>Nama</SectionTitle>
-          <p>Fikri</p>
-        </Col>
-        <Col>
-          <SectionTitle>Alamat</SectionTitle>
-          <p>Bae, Kudus, Jawa Tengah</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <SectionTitle>Nomor Hp</SectionTitle>
-          <p>089675329315</p>
-        </Col>
-      </Row>
+      <CheckoutContainer>
+        {/* Header */}
+        <Header className="d-md-none">
+          <Back />
+          <h5 className="m-0">Check Out</h5>
+        </Header>
 
-      <SectionTitle>Produk</SectionTitle>
-      <Card>
-        <Card.Body className="d-flex align-items-center gap-3">
-          <ImgContainer className="position-relative rounded-2 ratio ratio-1x1 bg-black col-4">
-            <img
-              src={product.image}
-              className="img-fluid object-fit-contain"
-              alt={product.name}
-            />
-          </ImgContainer>
-          <div className="col-8 d-flex flex-column gap-6">
-            <h6>{product.name}</h6>
-            <div className="d-flex justify-content-between">
-              <p>Harga per hari</p>
-              <PriceWrapper>
-                <Price>Rp {product.pricePerDay.toLocaleString("id-ID")}</Price>
-                <PricePeriod>/hari</PricePeriod>
-              </PriceWrapper>
-            </div>
-          </div>
-        </Card.Body>
-      </Card>
+        {/* Produk dan Detail Penyewa */}
+        <Row className="mb-4">
+          <Col md={6}>
+            <SectionTitle>Produk</SectionTitle>
+            <Card>
+              <Card.Body className="d-flex align-items-center gap-3">
+                <ImgContainer className="position-relative rounded-2 ratio ratio-1x1 bg-black col-4">
+                  <img
+                    src={product.image}
+                    className="img-fluid object-fit-contain"
+                    alt={product.name}
+                  />
+                </ImgContainer>
+                <div className="col-8">
+                  <h6>{product.name}</h6>
+                  <p>Harga per hari</p>
+                  {/* <h6>Rp {product.pricePerDay.toLocaleString("id-ID")}/hari</h6> */}
+                  <PriceWrapper>
+                    <Price>
+                      Rp {product.pricePerDay.toLocaleString("id-ID")}
+                    </Price>
+                    <PricePeriod>/hari</PricePeriod>
+                  </PriceWrapper>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={6} className="order-first order-md-last">
+            <SectionTitle>Nama</SectionTitle>
+            <p>Fikri</p>
+            <SectionTitle>Nomor Hp</SectionTitle>
+            <p>089675329315</p>
+            <SectionTitle>Alamat</SectionTitle>
+            <p>Bae, Kudus, Jawa Tengah</p>
+          </Col>
+        </Row>
 
-      <SectionTitle>Detail Penyewaan</SectionTitle>
-      <div>
-        {[1, 2, 3, 4].map((day) => (
-          <DurationButton
-            key={day}
-            active={rentalDuration === day}
-            onClick={() => handleDaySelection(day)}
-          >
-            {day} Hari
-          </DurationButton>
-        ))}
-        <DurationButton active={isCustom} onClick={handleCustomClick}>
-          Custom
-        </DurationButton>
-      </div>
-
-      {isCustom && (
-        <Form.Group controlId="customDays">
-          <Form.Label>Masukkan jumlah hari</Form.Label>
-          <Form.Control
-            type="number"
-            value={customDays}
-            onChange={handleCustomDaysChange}
-            min="1"
-            placeholder="Masukkan jumlah hari"
-          />
-        </Form.Group>
-      )}
-
-      <SectionTitle>Detail Harga</SectionTitle>
-      <PriceDetail>
-        <span>Lama Sewa</span>
-        <span>{rentalDuration ? `${rentalDuration} Hari` : "N/A"}</span>
-      </PriceDetail>
-      <PriceDetail>
-        <span>Sub Total</span>
-        <span>Rp {calculateSubtotal().toLocaleString("id-ID")}</span>
-      </PriceDetail>
-      <PriceDetail>
-        <span>Biaya Aplikasi</span>
-        <span>Rp {APPLICATION_FEE.toLocaleString("id-ID")}</span>
-      </PriceDetail>
-      <PriceDetail style={{ fontWeight: "bold" }}>
-        <span>Total Harga</span>
-        <span>Rp {calculateTotal().toLocaleString("id-ID")}</span>
-      </PriceDetail>
-
-      <div className="fixed-bottom bg-white border-top p-3">
-        <div className="container d-flex justify-content-between align-items-center">
-          <CustomButton>Bayar</CustomButton>
+        {/* Detail Penyewaan */}
+        <SectionTitle>Detail Penyewaan</SectionTitle>
+        <div>
+          {[1, 2, 3, 4].map((day) => (
+            <MyButton variant={"clicked-btn"}
+              key={day}
+              active={rentalDuration === day}
+              onClick={() => handleDaySelection(day)}
+            >
+              {day} Hari
+            </MyButton>
+          ))}
+          <MyButton variant={"clicked-btn"} active={isCustom} onClick={handleCustomClick}>
+            Custom
+          </MyButton>
         </div>
-      </div>
-    </CheckoutContainer>
+
+        {isCustom && (
+          <Form.Group controlId="customDays" className="mt-3">
+            <Form.Label>Masukkan jumlah hari</Form.Label>
+            <Form.Control
+              type="number"
+              value={customDays}
+              onChange={handleCustomDaysChange}
+              min="1"
+              placeholder="Masukkan jumlah hari"
+            />
+          </Form.Group>
+        )}
+
+        {/* Detail Harga */}
+        <SectionTitle>Detail Harga</SectionTitle>
+        <PriceDetailTable>
+          <div>
+            <span>Lama Sewa</span>
+            <span>{rentalDuration ? `${rentalDuration} Hari` : "N/A"}</span>
+          </div>
+          <div>
+            <span>Sub Total</span>
+            <span>Rp {calculateSubtotal().toLocaleString("id-ID")}</span>
+          </div>
+          <div>
+            <span>Biaya Aplikasi</span>
+            <span>Rp {APPLICATION_FEE.toLocaleString("id-ID")}</span>
+          </div>
+          <TotalRow>
+            <span>Total Harga</span>
+            <span>Rp {calculateTotal().toLocaleString("id-ID")}</span>
+          </TotalRow>
+        </PriceDetailTable>
+        <div className="gap-3 mt-4 justify-content-end d-none d-md-flex">
+          <Back variant={"text-btn"} className="col-2">
+            Kembali
+          </Back>
+          <MyButton variant={"primary-btn"} className="col-2">Bayar</MyButton>
+        </div>
+
+        <div className="fixed-bottom bg-white border-top p-3 d-md-none">
+          <div className="container d-flex justify-content-between align-items-center">
+            <MyButton variant={"primary-btn"} className="w-100">Bayar</MyButton>
+          </div>
+        </div>
+      </CheckoutContainer>
+    </>
   );
 }

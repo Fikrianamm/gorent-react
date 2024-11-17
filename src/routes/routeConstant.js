@@ -5,9 +5,11 @@ import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
 import ProductPage from "../pages/ProductPage";
 import CheckoutPage from "../pages/CheckoutPage";
+import AboutPage from "../pages/AboutPage";
 
 export const ERROR_PAGE = "*";
 export const HOME_PAGE = "/";
+export const ABOUT_PAGE = "/about";
 export const SIGNIN_PAGE = "/signin";
 export const SIGNUP_PAGE = "/signup";
 export const PRODUCT_PAGE = "/product/:productId";
@@ -37,5 +39,9 @@ export const router = createBrowserRouter([
   {
     path: CHECKOUT_PAGE,
     Component: CheckoutPage,
+  },
+  {
+    path: ABOUT_PAGE,
+    Component: AboutPage,
   }
 ]);

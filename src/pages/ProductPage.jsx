@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Topbar from "../components/Topbar";
 import { products } from "../utils/data";
 import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
+import { Back, MyButton } from "../components/Button";
 
 const ImageZoom = styled.img`
   max-height: 90vh;
@@ -18,18 +19,6 @@ const BgBlack = styled.div`
 
 const ImageContainer = styled.div`
   height: 400px;
-`;
-const ButtonBackCircle = styled.a`
-  background-color: #696969;
-  color: white;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Star = styled.span`
@@ -57,17 +46,7 @@ const OrderSection = styled.div`
   padding: 1rem;
   border-radius: 8px;
 `;
-const ButtonOrder = styled.a`
-  background-color: #2d83b2;
-  color: white;
-  font-weight: 600;
-  transition: all 0.5s ease-in-out;
 
-  &:hover {
-    background-color: #2978a3;
-    color: white;
-  }
-`;
 const PriceWrapper = styled.div`
   display: flex;
   align-items: baseline;
@@ -87,6 +66,7 @@ const PricePeriod = styled.span`
 `;
 
 export default function ProductPage() {
+  const navigate = useNavigate();
   const { productId } = useParams();
   const product = products.find((p) => p.id === productId);
 
@@ -203,12 +183,12 @@ export default function ProductPage() {
                   <PricePeriod>/hari</PricePeriod>
                 </PriceWrapper>
               </div>
-              <ButtonOrder
-                className="btn"
-                href={`/product/${productId}/checkout`}
+              <MyButton
+                variant={"primary-btn"}
+                onClick={() => navigate(`/product/${product.id}/checkout`)}
               >
                 Sewa Produk
-              </ButtonOrder>
+              </MyButton>
             </div>
           </OrderSection>
 
@@ -230,9 +210,7 @@ export default function ProductPage() {
       <div className="container-fluid p-0 d-inline d-md-none">
         {/* Product Detail Section  */}
         <ImageContainer className="position-relative image-container ratio ratio-1x1 bg-black">
-          <ButtonBackCircle href="/" className="rounded-5 z-3">
-            <i className="bi bi-arrow-left"></i>
-          </ButtonBackCircle>
+          <Back variant={"circle-btn"} />
           <img
             src={product.image}
             className="img-fluid object-fit-contain"
@@ -329,12 +307,12 @@ export default function ProductPage() {
                 <PricePeriod>/hari</PricePeriod>
               </PriceWrapper>
             </div>
-            <ButtonOrder
-              className="btn"
-              href={`/product/${productId}/checkout`}
+            <MyButton
+              variant={"primary-btn"}
+              onClick={() => navigate(`/product/${product.id}/checkout`)}
             >
               Sewa Produk
-            </ButtonOrder>
+            </MyButton>
           </div>
         </div>
       </div>

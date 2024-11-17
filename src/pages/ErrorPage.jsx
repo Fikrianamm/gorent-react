@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Back } from "../components/Button";
 
 const ErrorWrapper = styled.div`
   min-height: 100vh;
@@ -15,24 +16,6 @@ const ErrorContent = styled.div`
   max-width: 400px;
 `;
 
-const BackButton = styled.a`
-  display: inline-flex;
-  gap: .5rem;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  background-color: #0d6efd;
-  color: white;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  transition: background-color 0.2s;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0b5ed7;
-    color: white;
-  }
-`;
-
 export default function ErrorPage({ error }) {
   return (
     <ErrorWrapper>
@@ -47,7 +30,7 @@ export default function ErrorPage({ error }) {
             : "Maaf, halaman yang Anda cari tidak dapat ditemukan. Silakan kembali ke halaman utama."}
         </p>
 
-        <BackButton href="/">
+        <Back variant={"primary-btn"}>
           <svg
             width="20"
             height="20"
@@ -60,7 +43,7 @@ export default function ErrorPage({ error }) {
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
           Kembali ke Beranda
-        </BackButton>
+        </Back>
       </ErrorContent>
     </ErrorWrapper>
   );
