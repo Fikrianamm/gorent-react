@@ -53,21 +53,38 @@ const SectionTitle = styled.h2`
 `;
 
 const OrderSection = styled.div`
-    background-color: #F4F6FF;
-    padding: 1rem;
-    border-radius: 8px;
-` 
-const ButtonOrder = styled.button`
-    background-color: #2D83B2;
+  background-color: #f4f6ff;
+  padding: 1rem;
+  border-radius: 8px;
+`;
+const ButtonOrder = styled.a`
+  background-color: #2d83b2;
+  color: white;
+  font-weight: 600;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    background-color: #2978a3;
     color: white;
-    font-weight: 600;
-    transition: all .5s ease-in-out;
-    
-    &:hover{
-        background-color: #2978a3;
-        color: white;
-    }
-`
+  }
+`;
+const PriceWrapper = styled.div`
+  display: flex;
+  align-items: baseline;
+`;
+
+const Price = styled.span`
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+`;
+
+const PricePeriod = styled.span`
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: normal;
+  margin-left: 4px;
+`;
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -99,10 +116,10 @@ export default function ProductPage() {
               <ReviewCard>
                 <div className="d-flex flex-column gap-1">
                   <div className="d-flex justify-content-between align-items-end">
-                    <div className="d-flex flex-column">
+                    <div className="d-flex gap-2">
                       <div className="d-flex gap-1">
-                        <div className="rating p-0 m-0">⭐</div>
-                        <p className="rating fw-bold p-0 m-0">4.5</p>
+                        <div className="p-0 m-0">⭐</div>
+                        <p className="fw-bold p-0 m-0">4.5</p>
                       </div>
                       <strong className="">Sulthon</strong>
                     </div>
@@ -118,10 +135,10 @@ export default function ProductPage() {
               <ReviewCard>
                 <div className="d-flex flex-column gap-1">
                   <div className="d-flex justify-content-between align-items-end">
-                    <div className="d-flex flex-column">
+                    <div className="d-flex gap-2">
                       <div className="d-flex gap-1">
-                        <div className="rating p-0 m-0">⭐</div>
-                        <p className="rating fw-bold p-0 m-0">4.5</p>
+                        <div className="p-0 m-0">⭐</div>
+                        <p className="fw-bold p-0 m-0">4.5</p>
                       </div>
                       <strong className="">Fahris</strong>
                     </div>
@@ -149,7 +166,7 @@ export default function ProductPage() {
             </div>
           </div>
 
-        {/* Product Detail Section */}
+          {/* Product Detail Section */}
           <p>{product.description}</p>
           <div className="d-flex flex-column gap-2">
             <h3 className="fw-semibold fs-5">Detail Produk</h3>
@@ -160,9 +177,12 @@ export default function ProductPage() {
               </div>
               <div className="border-1 border-bottom d-flex justify-content-between w-100">
                 <h6>Harga per hari</h6>
-                <p className="fw-semibold">
-                  Rp{product.pricePerDay.toLocaleString()}/hari
-                </p>
+                <PriceWrapper className="mb-3">
+                  <Price>
+                    Rp {product.pricePerDay.toLocaleString("id-ID")}
+                  </Price>
+                  <PricePeriod>/hari</PricePeriod>
+                </PriceWrapper>
               </div>
               <div className="border-1 border-bottom d-flex justify-content-between w-100">
                 <h6>Tersedia</h6>
@@ -171,21 +191,28 @@ export default function ProductPage() {
             </div>
           </div>
 
-        {/* Order Section */}
-        <OrderSection>
-          <div className="container d-flex justify-content-between align-items-center">
-            <div>
-              <h6 className="mb-0 fw-bold fs-5">{product.name}</h6>
-              <p className="mb-0 fs-6 fw-semibold">
-                Rp{product.pricePerDay.toLocaleString()} /hari
-              </p>
+          {/* Order Section */}
+          <OrderSection>
+            <div className="container d-flex justify-content-between align-items-center">
+              <div>
+                <h6 className="mb-0 fw-bold fs-5">{product.name}</h6>
+                <PriceWrapper>
+                  <Price>
+                    Rp {product.pricePerDay.toLocaleString("id-ID")}
+                  </Price>
+                  <PricePeriod>/hari</PricePeriod>
+                </PriceWrapper>
+              </div>
+              <ButtonOrder
+                className="btn"
+                href={`/product/${productId}/checkout`}
+              >
+                Sewa Produk
+              </ButtonOrder>
             </div>
-            <ButtonOrder className="btn">Sewa Produk</ButtonOrder>
-          </div>
-        </OrderSection>
-        
+          </OrderSection>
 
-        {/* Recomended Product Section */}
+          {/* Recomended Product Section */}
           <div>
             <SectionTitle>Rekomendasi lainnya</SectionTitle>
             <div className="row g-3">
@@ -236,9 +263,10 @@ export default function ProductPage() {
             </div>
             <div className="border-1 border-bottom d-flex justify-content-between w-100">
               <h6>Harga per hari</h6>
-              <p className="fw-semibold">
-                Rp{product.pricePerDay.toLocaleString()}/hari
-              </p>
+              <PriceWrapper className="mb-3">
+                <Price>Rp {product.pricePerDay.toLocaleString("id-ID")}</Price>
+                <PricePeriod>/hari</PricePeriod>
+              </PriceWrapper>
             </div>
             <div className="border-1 border-bottom d-flex justify-content-between w-100">
               <h6>Tersedia</h6>
@@ -296,11 +324,17 @@ export default function ProductPage() {
           <div className="container d-flex justify-content-between align-items-center">
             <div>
               <h6 className="mb-0 fw-bold fs-5">{product.name}</h6>
-              <p className="mb-0 fs-6 fw-semibold">
-                Rp{product.pricePerDay.toLocaleString()} /hari
-              </p>
+              <PriceWrapper>
+                <Price>Rp {product.pricePerDay.toLocaleString("id-ID")}</Price>
+                <PricePeriod>/hari</PricePeriod>
+              </PriceWrapper>
             </div>
-            <ButtonOrder className="btn">Sewa Produk</ButtonOrder>
+            <ButtonOrder
+              className="btn"
+              href={`/product/${productId}/checkout`}
+            >
+              Sewa Produk
+            </ButtonOrder>
           </div>
         </div>
       </div>

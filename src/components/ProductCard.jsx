@@ -99,7 +99,7 @@ export default function ProductCard({ product }) {
         <ContentWrapper>
           <ProductTitle>{product.name}</ProductTitle>
           <PriceWrapper>
-            <Price>Rp{product.pricePerDay.toLocaleString()}</Price>
+            <Price>Rp {product.pricePerDay.toLocaleString("id-ID")}</Price>
             <PricePeriod>/hari</PricePeriod>
           </PriceWrapper>
           <RatingWrapper>
