@@ -4,13 +4,7 @@ import { Back } from "../components/Button";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Logo from "../components/Logo";
 import { LuBuilding2, LuRocket, LuTarget, LuUsers } from "react-icons/lu";
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-`;
+import { Header } from "../components/SharedComponent";
 
 const AboutContainer = styled(Container)`
   margin-top: 20px;

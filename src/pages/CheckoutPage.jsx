@@ -1,26 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Container, Row, Col, Card, Form } from "react-bootstrap";
+import { Row, Col, Card, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { products } from "../utils/data";
 import Topbar from "../components/Topbar";
 import { Back, MyButton } from "../components/Button";
+import { Header, PageContainer, Price, PricePeriod, PriceWrapper } from "../components/SharedComponent";
 
 // Constants
 const APPLICATION_FEE = 5000;
 
 // Styled Components
-const CheckoutContainer = styled(Container)`
-  margin-top: 20px;
-  padding-bottom: 80px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-`;
 
 const SectionTitle = styled.h6`
   font-weight: bold;
@@ -46,24 +36,6 @@ const TotalRow = styled.div`
 
 const ImgContainer = styled.div`
   max-width: 120px;
-`;
-
-const PriceWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-`;
-
-const Price = styled.span`
-  font-weight: 600;
-  color: #333;
-  font-size: 1rem;
-`;
-
-const PricePeriod = styled.span`
-  font-size: 0.875rem;
-  color: #666;
-  font-weight: normal;
-  margin-left: 4px;
 `;
 
 export default function CheckoutPage() {
@@ -99,7 +71,7 @@ export default function CheckoutPage() {
       <div className="d-none d-md-inline">
         <Topbar />
       </div>
-      <CheckoutContainer>
+      <PageContainer>
         {/* Header */}
         <Header className="d-md-none">
           <Back />
@@ -205,7 +177,7 @@ export default function CheckoutPage() {
             <MyButton variant={"primary-btn"} className="w-100">Bayar</MyButton>
           </div>
         </div>
-      </CheckoutContainer>
+      </PageContainer>
     </>
   );
 }

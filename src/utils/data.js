@@ -190,3 +190,30 @@ export const categories = [
     name: "Gadget",
   },
 ];
+
+export const users = [
+  {
+    UserId: 1,
+    Name: "Fikri",
+    Email: "user@example.com",
+    Password: "user", 
+    Address: "Bae, Kudus",
+    PhoneNumber: "081234567890",
+    Role: "user", 
+    IsVerified: true,
+    KtpPhoto: "ktp_fikri.jpg",
+    ImgProfile: "https://ui-avatars.com/api/?name=Fikri",
+  },
+  {
+    UserId: 2,
+    Name: "Admin",
+    Email: "admin@example.com",
+    Password: "admin", 
+    Address: "789 Pine Street, Surabaya",
+    PhoneNumber: "083456789012",
+    Role: "admin", 
+    IsVerified: true,
+    KtpPhoto: null, 
+    ImgProfile: "https://ui-avatars.com/api/?name=Admin",
+  },
+]

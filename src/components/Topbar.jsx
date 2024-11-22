@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Logo from "./Logo";
 import { MyButton } from "./Button";
+import useProductStore from "../zustand/productStore";
 
 const CategoryWrapper = styled.div`
   display: none;
@@ -117,6 +118,22 @@ function Kategori() {
 }
 
 function CenterModal(props) {
+  const {
+    selectedCategory,
+    selectedCondition,
+    setCategory,
+    setCondition,
+    applyFilters,
+  } = useProductStore();
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const handleConditionChange = (event) => {
+    setCondition(event.target.value);
+  };
+
   return (
     <Modal
       {...props}
@@ -130,10 +147,14 @@ function CenterModal(props) {
       <Modal.Body className="d-flex flex-column gap-2">
         <div className="d-flex justify-content-between align-items-center">
           <label htmlFor="categoryDropdown ">Kategori</label>
-          <Form.Select className="w-50">
-            <option>Pilih kategori</option>
+          <Form.Select
+            className="w-50"
+            value={selectedCategory || ""}
+            onChange={handleCategoryChange}
+          >
+            <option value={""}>Pilih kategori</option>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category.id} value={category.name}>
                 {category.name}
               </option>
             ))}
@@ -141,16 +162,26 @@ function CenterModal(props) {
         </div>
         <div className="d-flex justify-content-between align-items-center">
           <label htmlFor="categoryDropdown ">Kondisi</label>
-          <Form.Select className="w-50">
-            <option>Pilih kondisi</option>
-            <option value="1">Sangat baik</option>
-            <option value="2">Baik</option>
-            <option value="3">Layak pakai</option>
+          <Form.Select
+            className="w-50"
+            value={selectedCondition || ""}
+            onChange={handleConditionChange}
+          >
+            <option value={""}>Pilih kondisi</option>
+            <option value="Sangat baik">Sangat baik</option>
+            <option value="Baik">Baik</option>
+            <option value="Layak pakai">Layak pakai</option>
           </Form.Select>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <MyButton variant={"primary-btn"} className="w-100"> Filter </MyButton>
+        <MyButton
+          variant={"primary-btn"}
+          className="w-100"
+          onClick={() => applyFilters()}
+        >
+          Filter
+        </MyButton>
       </Modal.Footer>
     </Modal>
   );

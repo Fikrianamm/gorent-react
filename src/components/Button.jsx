@@ -32,7 +32,7 @@ const ButtonBackCircle = styled(Button)`
     color: white;
     position: absolute;
     top: 20px;
-    left: 1rem;
+    left: 12px;
     width: 2rem;
     height: 2rem;
     display: flex;

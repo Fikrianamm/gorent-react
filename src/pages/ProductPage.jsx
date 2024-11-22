@@ -4,6 +4,7 @@ import { products } from "../utils/data";
 import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 import { Back, MyButton } from "../components/Button";
+import { Price, PricePeriod, PriceWrapper } from "../components/SharedComponent";
 
 const ImageZoom = styled.img`
   max-height: 90vh;
@@ -45,24 +46,6 @@ const OrderSection = styled.div`
   background-color: #f4f6ff;
   padding: 1rem;
   border-radius: 8px;
-`;
-
-const PriceWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-`;
-
-const Price = styled.span`
-  font-weight: 600;
-  color: #333;
-  font-size: 1rem;
-`;
-
-const PricePeriod = styled.span`
-  font-size: 0.875rem;
-  color: #666;
-  font-weight: normal;
-  margin-left: 4px;
 `;
 
 export default function ProductPage() {

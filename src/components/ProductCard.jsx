@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Price, PricePeriod, PriceWrapper } from './SharedComponent';
 
 const CardWrapper = styled.a`
   text-decoration: none;
@@ -38,25 +39,6 @@ const ProductTitle = styled.h3`
   margin: 0 0 8px 0;
   color: #333;
   text-decoration: none;
-`;
-
-const PriceWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 4px;
-`;
-
-const Price = styled.span`
-  font-weight: 600;
-  color: #333;
-  font-size: 1rem;
-`;
-
-const PricePeriod = styled.span`
-  font-size: 0.875rem;
-  color: #666;
-  font-weight: normal;
-  margin-left: 4px;
 `;
 
 const RatingWrapper = styled.div`
