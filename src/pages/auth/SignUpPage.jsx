@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { MyButton } from "../../components/Button";
 
 const Body = styled.div`
   min-height: 100vh;
@@ -124,9 +125,9 @@ export default function SignUpPage() {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary w-100 mb-3">
+            <MyButton type="submit" className="w-100 mb-3">
               Sign Up
-            </button>
+            </MyButton>
           </form>
 
             <Divider>

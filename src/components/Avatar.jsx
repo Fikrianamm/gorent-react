@@ -2,22 +2,21 @@ import { Dropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styled from "styled-components";
 
+const ImgProfile = styled.img`
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+`;
+
 export default function Avatar() {
-
-  const ImgProfile = styled.img`
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    background-color: transparent;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.5s ease-in-out;
-    
-    &:hover{
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-  `
-
   return (
     <Dropdown>
       <Dropdown.Toggle
@@ -25,7 +24,10 @@ export default function Avatar() {
         id="dropdown-basic"
         bsPrefix="dropdown"
       >
-        <ImgProfile src="https://ui-avatars.com/api/?name=Fikri" alt="image-profile"/>
+        <ImgProfile
+          src="https://ui-avatars.com/api/?name=Fikri"
+          alt="image-profile"
+        />
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="mt-2">

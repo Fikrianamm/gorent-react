@@ -66,7 +66,7 @@ const PrimaryBackButton = styled(Button)`
   transition: all 0.5s ease-in-out;
 
   &:hover {
-    background-color: #2a79a3;
+    background-color: #1d6891;
     color: white;
   }
 `;

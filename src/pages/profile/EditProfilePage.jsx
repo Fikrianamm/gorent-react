@@ -1,12 +1,13 @@
-import Topbar from "../components/Topbar";
-import { Back } from "../components/Button";
-import { Header, PageContainer } from "../components/SharedComponent";
+import Topbar from "../../components/Topbar";
+import { Back, MyButton } from "../../components/Button";
+import { Header, PageContainer } from "../../components/SharedComponent";
 import styled from "styled-components";
 import { IoIosArrowForward } from "react-icons/io";
 import { FiLock, FiUser, FiUserCheck } from "react-icons/fi";
-import { Col } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
+import { CHANGEPASS_PAGE, EDITPROFILE_PAGE, VERIFICATION_PAGE } from "../../routes/routeConstant";
 
-const ProfileMenu = styled.div`
+const ProfileMenu = styled(Container)`
   margin-top: 2rem;
   display: flex;
   gap: 1rem;
@@ -35,6 +36,10 @@ const MenuItem = styled.a`
   color: black;
   border-radius: 10px;
   max-width: 350px;
+
+  .active{
+    color: #2D83B2;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -98,7 +103,7 @@ const Content = styled(Col)`
   }
 `;
 
-export default function ProfilePage() {
+export default function EditProfilePage() {
   return (
     <>
       <div className="d-none d-md-inline">
@@ -108,25 +113,25 @@ export default function ProfilePage() {
         {/* Header */}
         <Header className="d-md-none">
           <Back />
-          <h5 className="m-0">Profile</h5>
+          <h5 className="m-0">Edit Profile</h5>
         </Header>
         <ProfileMenu>
-          <Col md={4} className="d-flex flex-column align-items-center align-items-md-start m-auto m-md-0">
+          <Col md={4} className="d-none d-md-flex flex-column align-items-center align-items-md-start m-auto m-md-0">
             <div className="mb-5 mb-md-4 d-flex flex-column gap-2 text-center text-md-start">
               <h5>Fikri Taufiqul Anam</h5>
               <p>fikri@example.com</p>
             </div>
             <div className="d-flex flex-column gap-4 w-100">
-              <MenuItem href="/edit-profile">
-                <IconWrapper>
+              <MenuItem href={EDITPROFILE_PAGE}>
+                <IconWrapper className="active">
                   <FiUser size={18} />
                 </IconWrapper>
-                <MenuText>Edit Profile</MenuText>
+                <MenuText className="active">Edit Profile</MenuText>
                 <Arrow>
-                  <IoIosArrowForward />
+                  <IoIosArrowForward className="active"/>
                 </Arrow>
               </MenuItem>
-              <MenuItem href="/ganti-password">
+              <MenuItem href={CHANGEPASS_PAGE}>
                 <IconWrapper>
                   <FiLock size={18} />
                 </IconWrapper>
@@ -135,7 +140,7 @@ export default function ProfilePage() {
                   <IoIosArrowForward />
                 </Arrow>
               </MenuItem>
-              <MenuItem href="/verifikasi-akun">
+              <MenuItem href={VERIFICATION_PAGE}>
                 <IconWrapper>
                   <FiUserCheck size={18} />
                 </IconWrapper>
@@ -147,19 +152,22 @@ export default function ProfilePage() {
             </div>
           </Col>
           <Col md={8}>
-            <Content className="d-none d-md-flex">
-              <h5>Profil saya</h5>
+            <Content className="d-flex">
+              <h5>Edit Profile</h5>
               <p>
                 Kelola informasi profil Anda untuk mengontrol, melindungi, dan
                 mengamankan akun.
               </p>
               <form>
                 <label>Nama</label>
-                <input type="text" value="Fikri Taufiqul Anam" readOnly />
+                <input type="text" value="Fikri Taufiqul Anam" />
                 <label>Email</label>
-                <input type="email" value="fikri@example.com" readOnly />
+                <input type="email" value="fikri@example.com" />
                 <label>Alamat</label>
-                <input type="text" value="Bae, Kudus, Jawa Tengah" readOnly />
+                <input type="text" value="Bae, Kudus, Jawa Tengah" />
+                <div className="d-flex justify-content-end">
+                    <MyButton type={"submit"}>Simpan</MyButton>
+                </div>
               </form>
             </Content>
           </Col>
