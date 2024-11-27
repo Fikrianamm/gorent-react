@@ -1,9 +1,10 @@
-import { Button, Card, Row } from "react-bootstrap";
+import { Button, Card, Form, Modal, Row } from "react-bootstrap";
 import { addHours, format } from "date-fns";
 import { id } from "date-fns/locale";
 import styled from "styled-components";
 import { products } from "../utils/data";
 import { MyButton } from "./Button";
+import { useState } from "react";
 
 const MyOrderCard = styled(Card)`
   margin-top: 20px;
@@ -14,7 +15,7 @@ const MyOrderCard = styled(Card)`
 
 const StatusBadge = styled.div`
   background-color: ${(props) =>
-    props.status === "Denda" ? "#ffdbdb" : "#d6effc"};
+    props.status === "Denda" ? "#ffdbdb" : "#e5f1f8"};
   color: ${(props) => (props.status === "Denda" ? "#ED2222" : "#2D83B2")};
   padding: 5px 8px;
   border-radius: 5px;
@@ -25,15 +26,81 @@ const ImgContainer = styled.div`
   max-width: 120px;
 `;
 
+const Star = styled.span`
+  color: #ffc107;
+  width: fit-content;
+`;
+
+function ModalDenda(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Detail denda
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="pb-2 d-flex justify-content-between align-items-center border-bottom">
+          <p className="m-0">Tipe</p>
+          <strong>Terlambat</strong>
+        </div>
+        <div className="mt-2">
+          <strong>Deskripsi</strong>
+          <p className="m-0">
+            Denda keterlambatan 2 hari untuk pengembalian barang
+          </p>
+        </div>
+      </Modal.Body>
+    </Modal>
+  );
+}
+
+function ModalReview(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Review</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="pb-2 d-flex justify-content-start gap-3 align-items-center border-bottom">
+          <Star>
+            <i className="bi bi-star-fill"></i>
+          </Star>
+          <Form.Control type="number" />
+        </div>
+        <div className="mt-2 d-flex flex-column gap-2">
+          <strong>Deskripsi</strong>
+          <Form.Control as="textarea" />
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <MyButton onClick={props.onHide} className={"w-100"}>Review</MyButton>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 export default function OrderCard({ order }) {
+  const [modalDetailDenda, setModalDetailDenda] = useState(false);
+  const [modalReview, setModalReview] = useState(false);
   const product = products.find((p) => p.id === order.ProductId);
 
   return (
     <MyOrderCard>
       <Row>
         <div className="d-flex align-items-center mb-1 justify-content-between">
-          <div className="d-flex gap-2 align-items-center">
-            <small className="fw-semibold">
+          <div className="d-flex flex-column flex-md-row gap-2 align-items-start align-items-md-center">
+            <small className="fw-semibold order-last order-md-first">
               {format(new Date(order.RentalStartDate), "dd MMMM yyyy", {
                 locale: id,
               })}{" "}
@@ -123,7 +190,22 @@ export default function OrderCard({ order }) {
                   )}
                   {order.Status == "Denda" && (
                     <div className="d-none d-md-flex justify-content-end gap-1 mt-2">
+                      <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        className="me-2"
+                        onClick={() => setModalDetailDenda(true)}
+                      >
+                        Detail denda
+                      </Button>
                       <MyButton>Bayar</MyButton>
+                    </div>
+                  )}
+                  {order.Status == "Selesai" && (
+                    <div className="d-none d-md-flex justify-content-end gap-1 mt-2">
+                      <MyButton onClick={() => setModalReview(true)}>
+                        Review
+                      </MyButton>
                     </div>
                   )}
                 </div>
@@ -186,15 +268,35 @@ export default function OrderCard({ order }) {
             <Button variant="outline-danger" size="sm" className="me-2 w-100">
               Batalkan
             </Button>
-            <MyButton className={" w-100"}>Bayar</MyButton>
-          </div>
-        )}
-        {order.Status == "Denda" && (
-          <div className="d-md-none mt-2">
             <MyButton className={"w-100"}>Bayar</MyButton>
           </div>
         )}
+        {order.Status == "Denda" && (
+          <div className="d-md-none d-flex gap-1 mt-2">
+            <Button
+              variant="outline-secondary"
+              size="sm"
+              className="me-2 w-100"
+              onClick={() => setModalDetailDenda(true)}
+            >
+              Detail denda
+            </Button>
+            <MyButton className={"w-100"}>Bayar</MyButton>
+          </div>
+        )}
+        {order.Status == "Selesai" && (
+          <div className="d-md-none d-flex gap-1 mt-2">
+            <MyButton className={"w-100"} onClick={() => setModalReview(true)}>
+              Review
+            </MyButton>
+          </div>
+        )}
       </Row>
+      <ModalDenda
+        show={modalDetailDenda}
+        onHide={() => setModalDetailDenda(false)}
+      />
+      <ModalReview show={modalReview} onHide={() => setModalReview(false)} />
     </MyOrderCard>
   );
 }
