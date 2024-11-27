@@ -193,7 +193,7 @@ export const categories = [
 
 export const users = [
   {
-    UserId: 1,
+    UserId: "user-001",
     Name: "Fikri",
     Email: "user@example.com",
     Password: "user", 
@@ -205,7 +205,7 @@ export const users = [
     ImgProfile: "https://ui-avatars.com/api/?name=Fikri",
   },
   {
-    UserId: 2,
+    UserId: "admin-001",
     Name: "Admin",
     Email: "admin@example.com",
     Password: "admin", 
@@ -217,3 +217,50 @@ export const users = [
     ImgProfile: "https://ui-avatars.com/api/?name=Admin",
   },
 ]
+
+export const orders = [
+  {
+    OrderId: 'order-30122024-201231',
+    UserId: 'user-001',
+    ProductId: 'YOGA7-001',
+    RentalStartDate: '2024-01-30',
+    RentalEndDate: '2024-01-31',
+    TotalPrice: 105000,
+    Status: 'Belum bayar',
+    ReturnDate: null,
+    AdditionalCharges: 0,
+  },
+  {
+    OrderId: 'order-30122024-201232',
+    UserId: 'user-001',
+    ProductId: 'HYPE5-001',
+    RentalStartDate: '2024-01-28',
+    RentalEndDate: '2024-01-29',
+    TotalPrice: 97000,
+    Status: 'Selesai',
+    ReturnDate: '2024-01-30',
+    AdditionalCharges: 0,
+  },
+  {
+    OrderId: 'order-30122024-201233',
+    UserId: 'user-001',
+    ProductId: 'HYPE5-001',
+    RentalStartDate: '2024-01-28',
+    RentalEndDate: '2024-01-29',
+    TotalPrice: 97000,
+    Status: 'Pengembalian',
+    ReturnDate: '2024-01-30',
+    AdditionalCharges: 0,
+  },
+  {
+    OrderId: 'order-30122024-201234',
+    UserId: 'user-001',
+    ProductId: 'CHEERLUX-001',
+    RentalStartDate: '2024-01-27',
+    RentalEndDate: '2024-01-28',
+    TotalPrice: 35000,
+    Status: 'Denda',
+    ReturnDate: null,
+    AdditionalCharges: 5000,
+  },
+];

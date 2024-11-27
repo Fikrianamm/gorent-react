@@ -8,6 +8,8 @@ import { useState } from "react";
 import Logo from "./Logo";
 import { MyButton } from "./Button";
 import useProductStore from "../zustand/productStore";
+import { useNavigate } from "react-router-dom";
+import { ORDER_PAGE } from "../routes/routeConstant";
 
 const CategoryWrapper = styled.div`
   display: none;
@@ -189,6 +191,7 @@ function CenterModal(props) {
 
 export default function Topbar() {
   const [modalShow, setModalShow] = useState(false);
+  const navigate = useNavigate()
 
   return (
     <div className="container-fluid">
@@ -220,7 +223,10 @@ export default function Topbar() {
           >
             <i className="bi bi-filter"></i>
           </Button>
-          <button className="btn btn-light">
+          <button 
+            className="btn btn-light"
+            onClick={()=>navigate(ORDER_PAGE)}
+            >
             <i className="bi bi-bag"></i>
           </button>
 

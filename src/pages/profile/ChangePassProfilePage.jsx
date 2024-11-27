@@ -4,10 +4,10 @@ import { Header, PageContainer } from "../../components/SharedComponent";
 import styled from "styled-components";
 import { IoIosArrowForward } from "react-icons/io";
 import { FiLock, FiUser, FiUserCheck } from "react-icons/fi";
-import { Col } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import { CHANGEPASS_PAGE, EDITPROFILE_PAGE, VERIFICATION_PAGE } from "../../routes/routeConstant";
 
-const ProfileMenu = styled.div`
+const ProfileMenu = styled(Container)`
   margin-top: 2rem;
   display: flex;
   gap: 1rem;

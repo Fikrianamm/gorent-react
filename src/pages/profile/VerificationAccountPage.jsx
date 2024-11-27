@@ -1,5 +1,5 @@
 import Topbar from "../../components/Topbar";
-import { Back, MyButton } from "../../components/Button";
+import { Back } from "../../components/Button";
 import { Header, PageContainer } from "../../components/SharedComponent";
 import styled from "styled-components";
 import { IoIosArrowForward } from "react-icons/io";
@@ -19,9 +19,9 @@ import {
 } from "../../routes/routeConstant";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import { GoDot, GoDotFill } from "react-icons/go";
+import { GoDotFill } from "react-icons/go";
 
-const ProfileMenu = styled.div`
+const ProfileMenu = styled(Container)`
   margin-top: 2rem;
   display: flex;
   gap: 1rem;
@@ -149,6 +149,7 @@ export default function VerificationAccountPage() {
   const [step, setStep] = useState(1);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
+  const [ktpFile, setKtpFile] = useState(null);
 
   const handleNext = () => {
     if (step < 2) setStep(step + 1);
@@ -156,6 +157,21 @@ export default function VerificationAccountPage() {
 
   const handleBack = () => {
     if (step > 1) setStep(step - 1);
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setKtpFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (ktpFile) {
+      console.log("KTP File:", ktpFile);
+      alert("Verifikasi selesai!");
+    } else {
+      alert("Harap upload foto KTP.");
+    }
   };
 
   return (
@@ -220,7 +236,13 @@ export default function VerificationAccountPage() {
                   <StepHeader active={step === 1}>
                     <span className="step-title">1. Verifikasi Nomor HP</span>
                     <div className="step-number">
-                      {step === 1 ? <GoDotFill /> : step === 2 ? <FaCheck /> : ""}
+                      {step === 1 ? (
+                        <GoDotFill />
+                      ) : step === 2 ? (
+                        <FaCheck />
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </StepHeader>
                   <StepHeader active={step === 2}>
@@ -263,6 +285,17 @@ export default function VerificationAccountPage() {
                     <div>
                       <p>Verifikasi KTP</p>
                       {/* Tambahkan input/file upload untuk KTP */}
+                      <Form.Group className="mb-3">
+                        <Form.Label>Upload Foto KTP</Form.Label>
+                        <Form.Control
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                        />
+                        {ktpFile && (
+                          <p className="mt-2">File: {ktpFile.name}</p>
+                        )}
+                      </Form.Group>
                     </div>
                   )}
                   <Row>
@@ -274,13 +307,15 @@ export default function VerificationAccountPage() {
                       )}
                     </Col>
                     <Col className="text-end">
-                      <Button
-                        variant="primary"
-                        onClick={handleNext}
-                        disabled={step === 2}
-                      >
-                        Lanjut
-                      </Button>
+                      {step < 2 ? (
+                        <Button variant="primary" onClick={handleNext}>
+                          Lanjut
+                        </Button>
+                      ) : (
+                        <Button variant="primary" onClick={handleSubmit}>
+                          Selesai
+                        </Button>
+                      )}
                     </Col>
                   </Row>
                 </Form>

@@ -10,22 +10,35 @@ import ProfilePage from "../pages/profile/ProfilePage";
 import EditProfilePage from "../pages/profile/EditProfilePage";
 import ChangePassProfilePage from "../pages/profile/ChangePassProfilePage";
 import VerificationAccountPage from "../pages/profile/VerificationAccountPage";
+import OrderPage from "../pages/OrderPage";
 
+// Error
 export const ERROR_PAGE = "*";
+
+// Homepage
 export const HOME_PAGE = "/";
-export const ABOUT_PAGE = "/about";
-export const PRODUCT_PAGE = "/product/:productId";
+
+// Checkout
 export const CHECKOUT_PAGE = "/product/:productId/checkout";
+
+// Product
+export const PRODUCT_PAGE = "/product/:productId";
+
+// About
+export const ABOUT_PAGE = "/about";
 
 // Auth
 export const SIGNIN_PAGE = "/signin";
 export const SIGNUP_PAGE = "/signup";
 
-// profile
+// Profile
 export const PROFILE_PAGE = "/profile";
 export const EDITPROFILE_PAGE = "/profile/edit";
 export const CHANGEPASS_PAGE = "/profile/change-pass";
 export const VERIFICATION_PAGE = "/profile/verification";
+
+// Order
+export const ORDER_PAGE = "/order";
 
 export const router = createBrowserRouter([
   {
@@ -71,5 +84,9 @@ export const router = createBrowserRouter([
   {
     path: VERIFICATION_PAGE,
     Component: VerificationAccountPage,
-  }
+  },
+  {
+    path: ORDER_PAGE,
+    Component: OrderPage,
+  },
 ]);

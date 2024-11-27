@@ -1,15 +1,10 @@
 import styled from "styled-components";
 import Topbar from "../components/Topbar";
 import { Back } from "../components/Button";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import Logo from "../components/Logo";
 import { LuBuilding2, LuRocket, LuTarget, LuUsers } from "react-icons/lu";
-import { Header } from "../components/SharedComponent";
-
-const AboutContainer = styled(Container)`
-  margin-top: 20px;
-  padding-bottom: 120px;
-`;
+import { Header, PageContainer } from "../components/SharedComponent";
 
 const SectionTitle = styled.h5`
   font-weight: bold;
@@ -75,7 +70,7 @@ export default function AboutPage() {
       <div className="d-none d-md-inline">
         <Topbar />
       </div>
-      <AboutContainer>
+      <PageContainer>
         {/* Header */}
         <Header className="d-md-none">
           <Back />
@@ -209,7 +204,7 @@ export default function AboutPage() {
         ))}
       </Row>
 
-      </AboutContainer>
+      </PageContainer>
     </>
   );
 }

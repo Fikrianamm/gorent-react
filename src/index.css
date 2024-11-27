@@ -23,3 +23,7 @@ body {
 .close-modal-btn:hover {
   color: #ccc;
 }
+
+.no-scroll::-webkit-scrollbar{
+  display: none;
+}
