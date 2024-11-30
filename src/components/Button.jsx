@@ -71,10 +71,14 @@ const PrimaryBackButton = styled(Button)`
   }
 `;
 
-export function Back({ variant, className, children }) {
+export function Back({ variant, className, children, navigateTo }) {
   const navigate = useNavigate();
   function back() {
-    navigate(-1);
+    if(navigateTo){
+      navigate(navigateTo);
+    }else{
+      navigate(-1);
+    }
   }
 
   switch (variant) {

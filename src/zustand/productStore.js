@@ -8,12 +8,15 @@ const useProductStore = create((set, get) => ({
   loading: false,
   selectedCategory: null,
   selectedCondition: null,
+  searchValue:"",
 
   // Setters for filters
   setCategory: (category) => set({ selectedCategory: category }),
 
   setCondition: (condition) => set({ selectedCondition: condition }),
 
+  setSearchValue: (searchVal) => set({ searchValue: searchVal }),
+  
   resetFilters: () =>
     set({
       selectedCategory: null,

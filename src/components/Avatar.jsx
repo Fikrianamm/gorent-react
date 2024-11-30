@@ -1,6 +1,8 @@
-import { Dropdown } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Dropdown, Modal } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styled from "styled-components";
+import { MyButton } from "./Button";
 
 const ImgProfile = styled.img`
   width: 40px;
@@ -16,7 +18,37 @@ const ImgProfile = styled.img`
   }
 `;
 
+function ModalSignOut(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Konfirmasi Sign Out
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+          <p className="m-0">
+            Apakah Anda yakin ingin keluar dari Aplikasi?
+          </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <div className="d-flex gap-2">
+        <Button variant="outline-secondary">Ya, Sign Out</Button>
+        <MyButton onClick={props.onHide}>Kembali</MyButton>
+        </div>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 export default function Avatar() {
+  const [modalSignOut, setModalSignOut] = useState(false);
+
   return (
     <Dropdown>
       <Dropdown.Toggle
@@ -46,13 +78,14 @@ export default function Avatar() {
         </LinkContainer>
 
         <Dropdown.Item
-          // onClick={handleSignOut}
+          onClick={() => setModalSignOut(true)}
           className="text-danger d-flex gap-3"
         >
           <i className="bi bi-box-arrow-right"></i>
           Sign Out
         </Dropdown.Item>
       </Dropdown.Menu>
+      <ModalSignOut show={modalSignOut} onHide={() => setModalSignOut(false)}/>
     </Dropdown>
   );
 }

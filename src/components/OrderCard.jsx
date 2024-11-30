@@ -69,7 +69,9 @@ function ModalReview(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Review</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Review {props.product.name}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="pb-2 d-flex justify-content-start gap-3 align-items-center border-bottom">
@@ -84,7 +86,38 @@ function ModalReview(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <MyButton onClick={props.onHide} className={"w-100"}>Review</MyButton>
+        <MyButton onClick={props.onHide} className={"w-100"}>
+          Review
+        </MyButton>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+function ModalCancelOrder(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Konfirmasi Order
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p className="m-0">
+          Apakah Anda yakin ingin membatalkan penyewaan{" "}
+          <strong>{props.product.name}</strong>?
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <div className="d-flex gap-2">
+          <Button variant="outline-secondary">Ya, batalkan</Button>
+          <MyButton onClick={props.onHide}>Kembali</MyButton>
+        </div>
       </Modal.Footer>
     </Modal>
   );
@@ -93,6 +126,7 @@ function ModalReview(props) {
 export default function OrderCard({ order }) {
   const [modalDetailDenda, setModalDetailDenda] = useState(false);
   const [modalReview, setModalReview] = useState(false);
+  const [modalCancelOrder, setModalCancelOrder] = useState(false);
   const product = products.find((p) => p.id === order.ProductId);
 
   return (
@@ -182,6 +216,7 @@ export default function OrderCard({ order }) {
                         variant="outline-danger"
                         size="sm"
                         className="me-2"
+                        onClick={() => setModalCancelOrder(true)}
                       >
                         Batalkan
                       </Button>
@@ -265,7 +300,12 @@ export default function OrderCard({ order }) {
         )}
         {order.Status == "Belum bayar" && (
           <div className="d-md-none d-flex gap-1 mt-2">
-            <Button variant="outline-danger" size="sm" className="me-2 w-100">
+            <Button
+              variant="outline-danger"
+              size="sm"
+              className="me-2 w-100"
+              onClick={() => setModalCancelOrder(true)}
+            >
               Batalkan
             </Button>
             <MyButton className={"w-100"}>Bayar</MyButton>
@@ -296,7 +336,16 @@ export default function OrderCard({ order }) {
         show={modalDetailDenda}
         onHide={() => setModalDetailDenda(false)}
       />
-      <ModalReview show={modalReview} onHide={() => setModalReview(false)} />
+      <ModalReview
+        show={modalReview}
+        onHide={() => setModalReview(false)}
+        product={product}
+      />
+      <ModalCancelOrder
+        show={modalCancelOrder}
+        onHide={() => setModalCancelOrder(false)}
+        product={product}
+      />
     </MyOrderCard>
   );
 }

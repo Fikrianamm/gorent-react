@@ -4,11 +4,11 @@ import Lokasi from "./Lokasi";
 
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import { MyButton } from "./Button";
 import useProductStore from "../zustand/productStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ORDER_PAGE } from "../routes/routeConstant";
 
 const CategoryWrapper = styled.div`
@@ -36,7 +36,7 @@ const StyledDropdown = styled(Dropdown)`
 const StyledToggle = styled(Dropdown.Toggle)`
   background: transparent !important;
   border: none !important;
-  padding: 0;
+  padding: 2px;
   color: black;
 
   &:after {
@@ -80,7 +80,9 @@ const SearchInput = styled.input`
 `;
 
 function Kategori() {
+  const { setCategory } = useProductStore();
   const [isHovered, setIsHovered] = useState(false);
+  const [searchParams] = useSearchParams();
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -89,6 +91,13 @@ function Kategori() {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (category) {
+      setCategory(category);
+    }
+  }, [setCategory, searchParams]);
 
   return (
     <CategoryWrapper>
@@ -101,12 +110,18 @@ function Kategori() {
 
         <Dropdown.Menu>
           <DropdownItemWrapper>
+            <StyledOption
+              onClick={() => {
+                setCategory(null);
+              }}
+            >
+              Semua
+            </StyledOption>
             {categories.map((category) => (
               <StyledOption
                 key={category.id}
                 onClick={() => {
-                  // Add your click handler here
-                  console.log(`Selected category: ${category.name}`);
+                  setCategory(category.name);
                 }}
               >
                 {category.name}
@@ -125,8 +140,11 @@ function CenterModal(props) {
     selectedCondition,
     setCategory,
     setCondition,
-    applyFilters,
+    searchValue,
   } = useProductStore();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -135,6 +153,39 @@ function CenterModal(props) {
   const handleConditionChange = (event) => {
     setCondition(event.target.value);
   };
+
+  const handleFilter = () => {
+    const params = {};
+
+    if (searchValue) {
+      params.search = searchValue;
+    }
+
+    if (selectedCategory) {
+      params.category = selectedCategory;
+    }
+
+    if (selectedCondition) {
+      params.condition = selectedCondition;
+    }
+
+    if (Object.keys(params).length > 0) {
+      navigate("/search");
+      setSearchParams(params);
+      props.onHide()
+    }
+  };
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    const condition = searchParams.get("condition");
+    if (category) {
+      setCategory(category);
+    }
+    if (condition) {
+      setCondition(condition);
+    }
+  }, [setCategory, setCondition, searchParams]);
 
   return (
     <Modal
@@ -180,7 +231,7 @@ function CenterModal(props) {
         <MyButton
           variant={"primary-btn"}
           className="w-100"
-          onClick={() => applyFilters()}
+          onClick={() => handleFilter()}
         >
           Filter
         </MyButton>
@@ -190,8 +241,40 @@ function CenterModal(props) {
 }
 
 export default function Topbar() {
+  const { selectedCategory, selectedCondition, searchValue, setSearchValue } =
+    useProductStore();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [modalShow, setModalShow] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const handleSetQuery = (e) => {
+    e.preventDefault()
+    const params = {};
+
+    if (searchValue) {
+      params.search = searchValue;
+    }
+
+    if (selectedCategory) {
+      params.category = selectedCategory;
+    }
+
+    if (selectedCondition) {
+      params.condition = selectedCondition;
+    }
+
+    if (Object.keys(params).length > 0) {
+      navigate("/search");
+      setSearchParams(params);
+    }
+  };
+
+  useEffect(() => {
+    const search = searchParams.get("search");
+    if (search) {
+      setSearchValue(search);
+    }
+  }, [setSearchValue, searchParams]);
 
   return (
     <div className="container-fluid">
@@ -210,10 +293,20 @@ export default function Topbar() {
         <Kategori />
 
         <SearchContainer className="flex-grow-1 me-3">
-          <div className="d-flex align-items-center">
-            <i className="bi order-md-last bi-search me-2 text-muted"></i>
-            <SearchInput type="text" placeholder="Cari Produk" />
-          </div>
+          <Form
+            onSubmit={handleSetQuery}
+            className="d-flex align-items-center"
+          >
+            <SearchInput
+              type="text"
+              placeholder="Cari Produk"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <Button type="submit" className="bg-transparent p-0 border-0">
+              <i className="bi bi-search me-2 text-muted"></i>
+            </Button>
+          </Form>
         </SearchContainer>
         <div className="d-flex gap-3">
           <Button
@@ -223,10 +316,10 @@ export default function Topbar() {
           >
             <i className="bi bi-filter"></i>
           </Button>
-          <button 
+          <button
             className="btn btn-light"
-            onClick={()=>navigate(ORDER_PAGE)}
-            >
+            onClick={() => navigate(ORDER_PAGE)}
+          >
             <i className="bi bi-bag"></i>
           </button>
 

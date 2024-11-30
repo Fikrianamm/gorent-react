@@ -11,6 +11,7 @@ import EditProfilePage from "../pages/profile/EditProfilePage";
 import ChangePassProfilePage from "../pages/profile/ChangePassProfilePage";
 import VerificationAccountPage from "../pages/profile/VerificationAccountPage";
 import OrderPage from "../pages/OrderPage";
+import SearchPage from "../pages/SearchPage";
 
 // Error
 export const ERROR_PAGE = "*";
@@ -39,6 +40,9 @@ export const VERIFICATION_PAGE = "/profile/verification";
 
 // Order
 export const ORDER_PAGE = "/order";
+
+// Search
+export const SEARCH_PAGE = "/search";
 
 export const router = createBrowserRouter([
   {
@@ -88,5 +92,9 @@ export const router = createBrowserRouter([
   {
     path: ORDER_PAGE,
     Component: OrderPage,
+  },
+  {
+    path: SEARCH_PAGE,
+    Component: SearchPage,
   },
 ]);
