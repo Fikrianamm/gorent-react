@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MyButton } from "../../components/Button";
+import { SIGNIN_PAGE } from "../../routes/routeConstant";
 
 const Body = styled.div`
   min-height: 100vh;
@@ -145,7 +146,7 @@ export default function SignUpPage() {
 
             <p className="text-center mt-4">
               Sudah punya akun?{" "}
-              <a href="/signup" className="text-decoration-none">
+              <a href={SIGNIN_PAGE} className="text-decoration-none">
                 Sign In
               </a>
             </p>

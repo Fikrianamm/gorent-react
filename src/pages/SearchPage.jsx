@@ -21,7 +21,7 @@ export default function SearchPage() {
     selectedCondition,
     setCategory,
     setCondition,
-    products,
+    filteredProducts
   } = useProductStore();
 
   const handleCategoryChange = (event) => {
@@ -104,7 +104,7 @@ export default function SearchPage() {
               </Form.Select>
             </div>
 
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <div key={product.id} className="col-6 col-md-4 col-lg-3">
                 <ProductCard product={product} />
               </div>

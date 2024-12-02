@@ -1,5 +1,11 @@
 import styled from "styled-components";
 import { MyButton } from "../../components/Button";
+import { users } from "../../utils/data";
+import { useEffect, useState } from "react";
+import useAuthStore from "../../zustand/authStore";
+import { Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { HOME_PAGE } from "../../routes/routeConstant";
 
 const Body = styled.div`
   min-height: 100vh;
@@ -62,6 +68,34 @@ const AuthBtn = styled.button`
 `;
 
 export default function SignInPage() {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const { login, user } = useAuthStore();
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const foundUser = users.find(
+      (user) => user.Email === email && user.Password === password
+    );
+
+    if (!foundUser) {
+      setError("Invalid email or password. Please try again.");
+    } else {
+      setError("");
+      login(foundUser); 
+      navigate(HOME_PAGE)
+    }
+  };
+
+  useEffect(()=>{
+    if(user){
+      navigate(HOME_PAGE)
+    }
+  },[navigate, user])
+
   return (
     <Body>
       <div className="container z-1">
@@ -78,8 +112,9 @@ export default function SignInPage() {
               </h2>
             </div>
 
-            <form action="/signin" method="POST">
+            <form onSubmit={handleSignIn} method="POST">
               <div className="mb-3">
+              {error && <Alert variant="danger">{error}</Alert>}
                 <label htmlFor="email" className="form-label">
                   Email
                 </label>
@@ -90,6 +125,8 @@ export default function SignInPage() {
                   name="email"
                   placeholder="Example@gmail.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="mb-4">
@@ -103,6 +140,8 @@ export default function SignInPage() {
                   name="password"
                   placeholder="********"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <MyButton type="submit" className="w-100 mb-3">

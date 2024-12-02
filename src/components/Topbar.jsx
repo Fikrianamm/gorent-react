@@ -9,7 +9,8 @@ import Logo from "./Logo";
 import { MyButton } from "./Button";
 import useProductStore from "../zustand/productStore";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ORDER_PAGE } from "../routes/routeConstant";
+import { ORDER_PAGE, SIGNIN_PAGE, SIGNUP_PAGE } from "../routes/routeConstant";
+import useAuthStore from "../zustand/authStore";
 
 const CategoryWrapper = styled.div`
   display: none;
@@ -141,6 +142,7 @@ function CenterModal(props) {
     setCategory,
     setCondition,
     searchValue,
+    applyFilters
   } = useProductStore();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -172,7 +174,8 @@ function CenterModal(props) {
     if (Object.keys(params).length > 0) {
       navigate("/search");
       setSearchParams(params);
-      props.onHide()
+      applyFilters()
+      props.onHide();
     }
   };
 
@@ -241,14 +244,15 @@ function CenterModal(props) {
 }
 
 export default function Topbar() {
-  const { selectedCategory, selectedCondition, searchValue, setSearchValue } =
+  const { applyFilters, selectedCategory, selectedCondition, searchValue, setSearchValue } =
     useProductStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuthStore();
 
   const handleSetQuery = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const params = {};
 
     if (searchValue) {
@@ -266,6 +270,7 @@ export default function Topbar() {
     if (Object.keys(params).length > 0) {
       navigate("/search");
       setSearchParams(params);
+      applyFilters()
     }
   };
 
@@ -281,7 +286,18 @@ export default function Topbar() {
       <div className="d-flex justify-content-between container-fluid mt-4 align-items-end d-md-none">
         <Lokasi direction="horizontal" />
 
-        <Avatar />
+        {user ? (
+          <Avatar />
+        ) : (
+          <MyButton
+            variant={"clicked-btn"}
+            onClick={() => {
+              navigate(SIGNIN_PAGE);
+            }}
+          >
+            Masuk
+          </MyButton>
+        )}
       </div>
 
       {/* <!-- Header with Search and Icons --> */}
@@ -293,10 +309,7 @@ export default function Topbar() {
         <Kategori />
 
         <SearchContainer className="flex-grow-1 me-3">
-          <Form
-            onSubmit={handleSetQuery}
-            className="d-flex align-items-center"
-          >
+          <Form onSubmit={handleSetQuery} className="d-flex align-items-center">
             <SearchInput
               type="text"
               placeholder="Cari Produk"
@@ -326,7 +339,27 @@ export default function Topbar() {
           <CenterModal show={modalShow} onHide={() => setModalShow(false)} />
 
           <div className="d-none d-md-flex">
-            <Avatar />
+            {user ? (
+              <Avatar />
+            ) : (
+              <div className="d-flex gap-1">
+                <MyButton
+                  variant={"border-blue"}
+                  onClick={() => {
+                    navigate(SIGNIN_PAGE);
+                  }}
+                >
+                  Masuk
+                </MyButton>
+                <MyButton
+                  onClick={() => {
+                    navigate(SIGNUP_PAGE);
+                  }}
+                >
+                  Daftar
+                </MyButton>
+              </div>
+            )}
           </div>
         </div>
       </div>

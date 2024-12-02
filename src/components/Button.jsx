@@ -12,6 +12,18 @@ const PrimaryButton = styled(Button)`
   }
 `;
 
+const BorderBlueButton = styled(Button)`
+  background-color: transparent;
+  border: 1px solid #2d83b2;
+  transition: all 0.5s ease-in-out;
+  color: #2d83b2;
+  
+  &:hover {
+    color: #2d83b2;
+    background-color: #e9f5fc;
+  }
+`;
+
 const SecondaryButton = styled(Button)`
   &&& {
     margin: 5px 10px 10px 0;
@@ -145,6 +157,16 @@ export function MyButton({
         >
           {children}
         </SecondaryButton>
+      );
+    case "border-blue":
+      return (
+        <BorderBlueButton
+          type={type}
+          onClick={() => onClick()}
+          className={className}
+        >
+          {children}
+        </BorderBlueButton>
       );
 
     default:

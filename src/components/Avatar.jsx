@@ -3,6 +3,7 @@ import { Button, Dropdown, Modal } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styled from "styled-components";
 import { MyButton } from "./Button";
+import useAuthStore from "../zustand/authStore";
 
 const ImgProfile = styled.img`
   width: 40px;
@@ -19,6 +20,13 @@ const ImgProfile = styled.img`
 `;
 
 function ModalSignOut(props) {
+  const { logout } = useAuthStore();
+
+  function handleSignOut() {
+    logout();
+    props.onHide();
+  }
+
   return (
     <Modal
       {...props}
@@ -32,14 +40,14 @@ function ModalSignOut(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-          <p className="m-0">
-            Apakah Anda yakin ingin keluar dari Aplikasi?
-          </p>
+        <p className="m-0">Apakah Anda yakin ingin keluar dari Aplikasi?</p>
       </Modal.Body>
       <Modal.Footer>
         <div className="d-flex gap-2">
-        <Button variant="outline-secondary">Ya, Sign Out</Button>
-        <MyButton onClick={props.onHide}>Kembali</MyButton>
+          <Button variant="outline-secondary" onClick={handleSignOut}>
+            Ya, Sign Out
+          </Button>
+          <MyButton onClick={props.onHide}>Kembali</MyButton>
         </div>
       </Modal.Footer>
     </Modal>
@@ -85,7 +93,7 @@ export default function Avatar() {
           Sign Out
         </Dropdown.Item>
       </Dropdown.Menu>
-      <ModalSignOut show={modalSignOut} onHide={() => setModalSignOut(false)}/>
+      <ModalSignOut show={modalSignOut} onHide={() => setModalSignOut(false)} />
     </Dropdown>
   );
 }

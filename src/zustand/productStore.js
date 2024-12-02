@@ -8,7 +8,7 @@ const useProductStore = create((set, get) => ({
   loading: false,
   selectedCategory: null,
   selectedCondition: null,
-  searchValue:"",
+  searchValue: "",
 
   // Setters for filters
   setCategory: (category) => set({ selectedCategory: category }),
@@ -16,7 +16,7 @@ const useProductStore = create((set, get) => ({
   setCondition: (condition) => set({ selectedCondition: condition }),
 
   setSearchValue: (searchVal) => set({ searchValue: searchVal }),
-  
+
   resetFilters: () =>
     set({
       selectedCategory: null,
@@ -26,25 +26,33 @@ const useProductStore = create((set, get) => ({
 
   // Apply filters to update filteredProducts
   applyFilters: () => {
-    const { products, selectedCategory, selectedCondition } = get();
+    const { products, selectedCategory, selectedCondition, searchValue } =
+      get();
 
     const filtered = products.filter((product) => {
-      if (selectedCategory && selectedCondition) {
-        return (
-          product.kategori === selectedCategory &&
-          product.condition === selectedCondition
-        );
-      } else if (selectedCategory) {
-        return product.kategori === selectedCategory;
-      } else if (selectedCondition) {
-        return product.condition === selectedCondition;
-      } else {
-        true;
-      }
+      const matchesCategory = selectedCategory
+        ? product.kategori === selectedCategory
+        : false;
+
+      const matchesCondition = selectedCondition
+        ? product.condition === selectedCondition
+        : false;
+
+      const matchesSearchValue = searchValue
+        ? product.name.toLowerCase().includes(searchValue.toLowerCase())
+        : false;
+
+      // Produk lolos jika sesuai dengan salah satu filter
+      return matchesCategory || matchesCondition || matchesSearchValue;
     });
 
-    // Simpan hasil filter ke state filteredProducts
-    set({ filteredProducts: filtered });
+    // Jika tidak ada filter yang aktif, tampilkan semua produk
+    const finalFilteredProducts =
+      selectedCategory || selectedCondition || searchValue
+        ? filtered
+        : products;
+
+    set({ filteredProducts: finalFilteredProducts });
   },
 }));
 
