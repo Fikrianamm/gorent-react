@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Row, Col, Card, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { products } from "../utils/data";
 import Topbar from "../components/Topbar";
 import { Back, MyButton } from "../components/Button";
-import { Header, PageContainer, Price, PricePeriod, PriceWrapper } from "../components/SharedComponent";
+import {
+  Header,
+  PageContainer,
+  Price,
+  PricePeriod,
+  PriceWrapper,
+} from "../components/SharedComponent";
+import { DASHBOARD_PAGE } from "../routes/routeConstant";
+import useAuthStore from "../zustand/authStore";
 
 // Constants
 const APPLICATION_FEE = 5000;
@@ -66,6 +74,17 @@ export default function CheckoutPage() {
   const calculateSubtotal = () => rentalDuration * product.pricePerDay;
   const calculateTotal = () => calculateSubtotal() + APPLICATION_FEE;
 
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      if (user.Role === "admin") {
+        navigate(DASHBOARD_PAGE);
+      }
+    }
+  }, [navigate, user]);
+
   return (
     <>
       <div className="d-none d-md-inline">
@@ -119,7 +138,8 @@ export default function CheckoutPage() {
         <SectionTitle>Detail Penyewaan</SectionTitle>
         <div>
           {[1, 2, 3, 4].map((day) => (
-            <MyButton variant={"clicked-btn"}
+            <MyButton
+              variant={"clicked-btn"}
               key={day}
               active={rentalDuration === day}
               onClick={() => handleDaySelection(day)}
@@ -127,7 +147,11 @@ export default function CheckoutPage() {
               {day} Hari
             </MyButton>
           ))}
-          <MyButton variant={"clicked-btn"} active={isCustom} onClick={handleCustomClick}>
+          <MyButton
+            variant={"clicked-btn"}
+            active={isCustom}
+            onClick={handleCustomClick}
+          >
             Custom
           </MyButton>
         </div>
@@ -169,12 +193,16 @@ export default function CheckoutPage() {
           <Back variant={"text-btn"} className="col-2">
             Kembali
           </Back>
-          <MyButton variant={"primary-btn"} className="col-2">Bayar</MyButton>
+          <MyButton variant={"primary-btn"} className="col-2">
+            Bayar
+          </MyButton>
         </div>
 
         <div className="fixed-bottom bg-white border-top p-3 d-md-none">
           <div className="container d-flex justify-content-between align-items-center">
-            <MyButton variant={"primary-btn"} className="w-100">Bayar</MyButton>
+            <MyButton variant={"primary-btn"} className="w-100">
+              Bayar
+            </MyButton>
           </div>
         </div>
       </PageContainer>

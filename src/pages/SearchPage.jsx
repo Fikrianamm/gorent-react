@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Topbar from "../components/Topbar";
 import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
@@ -6,7 +6,10 @@ import useProductStore from "../zustand/productStore";
 import { Form } from "react-bootstrap";
 import { categories } from "../utils/data";
 import { Back } from "../components/Button";
-import { HOME_PAGE } from "../routes/routeConstant";
+import { DASHBOARD_PAGE, HOME_PAGE } from "../routes/routeConstant";
+import useAuthStore from "../zustand/authStore";
+import { useEffect } from "react";
+import React from "react";
 
 const SectionTitle = styled.div`
   font-size: 1.2rem;
@@ -53,6 +56,17 @@ export default function SearchPage() {
 
     setSearchParams(currentParams);
   };
+
+  const {user} = useAuthStore()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user){
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }
+    }
+  },[navigate, user])
 
   return (
     <div className="pb-5">

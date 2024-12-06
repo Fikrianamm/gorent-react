@@ -5,6 +5,10 @@ import { Card, Col, Row } from "react-bootstrap";
 import Logo from "../components/Logo";
 import { LuBuilding2, LuRocket, LuTarget, LuUsers } from "react-icons/lu";
 import { Header, PageContainer } from "../components/SharedComponent";
+import useAuthStore from "../zustand/authStore";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { DASHBOARD_PAGE } from "../routes/routeConstant";
 
 const SectionTitle = styled.h5`
   font-weight: bold;
@@ -65,6 +69,17 @@ const TeamMember = styled.div`
 `;
 
 export default function AboutPage() {
+  const {user} = useAuthStore()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user){
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }
+    }
+  },[navigate, user])
+  
   return (
     <>
       <div className="d-none d-md-inline">
@@ -77,7 +92,7 @@ export default function AboutPage() {
           <h5 className="m-0">About</h5>
         </Header>
         <div className="d-flex justify-content-center">
-          <Logo />
+          <Logo size={200} size768={200} size1280={200}/>
         </div>
 
         {/* Tentang GoRent */}

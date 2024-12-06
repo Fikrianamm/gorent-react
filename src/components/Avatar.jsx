@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { MyButton } from "./Button";
 import useAuthStore from "../zustand/authStore";
 
-const ImgProfile = styled.img`
+export const ImgProfile = styled.img`
   width: 40px;
   height: 40px;
   border: none;
@@ -19,7 +19,7 @@ const ImgProfile = styled.img`
   }
 `;
 
-function ModalSignOut(props) {
+export function ModalSignOut(props) {
   const { logout } = useAuthStore();
 
   function handleSignOut() {

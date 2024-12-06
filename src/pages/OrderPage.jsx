@@ -1,10 +1,14 @@
 import Topbar from "../components/Topbar";
 import { Back, MyButton } from "../components/Button";
 import { Header, PageContainer } from "../components/SharedComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { orders } from "../utils/data";
 import { Container, Form, InputGroup } from "react-bootstrap";
 import OrderCard from "../components/OrderCard";
+import React from "react";
+import useAuthStore from "../zustand/authStore";
+import { useNavigate } from "react-router-dom";
+import { DASHBOARD_PAGE } from "../routes/routeConstant";
 
 export default function OrderPage() {
   const [statusFilter, setStatusFilter] = useState("Semua");
@@ -22,6 +26,17 @@ export default function OrderPage() {
   });
 
   const filteredOrders = filteredBySearch;
+
+  const {user} = useAuthStore()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user){
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }
+    }
+  },[navigate, user])
 
   return (
     <>

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { MyButton } from "../../components/Button";
-import { SIGNIN_PAGE } from "../../routes/routeConstant";
+import { DASHBOARD_PAGE, HOME_PAGE, SIGNIN_PAGE } from "../../routes/routeConstant";
+import { useEffect } from "react";
+import useAuthStore from "../../zustand/authStore";
+import { useNavigate } from "react-router-dom";
 
 const Body = styled.div`
   min-height: 100vh;
@@ -63,6 +66,19 @@ const AuthBtn = styled.button`
 `;
 
 export default function SignUpPage() {
+  const {user} = useAuthStore()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user){
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }else if(user.Role === "user"){
+        navigate(HOME_PAGE)
+      }
+    }
+  },[navigate, user])
+
   return (
     <Body>
       <div className="container z-1">

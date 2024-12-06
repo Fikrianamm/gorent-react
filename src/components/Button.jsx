@@ -1,6 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import React from "react";
 
 const PrimaryButton = styled(Button)`
   background-color: #2d83b2;
@@ -17,10 +18,22 @@ const BorderBlueButton = styled(Button)`
   border: 1px solid #2d83b2;
   transition: all 0.5s ease-in-out;
   color: #2d83b2;
-  
+
   &:hover {
     color: #2d83b2;
     background-color: #e9f5fc;
+  }
+`;
+
+const BorderGreyButton = styled(Button)`
+  background-color: transparent;
+  border: 1px solid #e3e3e7;
+  transition: all 0.2s;
+  color: #666666;
+  
+  &:hover{
+    background-color: #e9f5fc;
+    color: #2d83b2;
   }
 `;
 
@@ -86,9 +99,9 @@ const PrimaryBackButton = styled(Button)`
 export function Back({ variant, className, children, navigateTo }) {
   const navigate = useNavigate();
   function back() {
-    if(navigateTo){
+    if (navigateTo) {
       navigate(navigateTo);
-    }else{
+    } else {
       navigate(-1);
     }
   }
@@ -167,6 +180,17 @@ export function MyButton({
         >
           {children}
         </BorderBlueButton>
+      );
+    case "border-grey":
+      return (
+        <BorderGreyButton
+          active={active}
+          type={type}
+          onClick={() => onClick()}
+          className={className}
+        >
+          {children}
+        </BorderGreyButton>
       );
 
     default:

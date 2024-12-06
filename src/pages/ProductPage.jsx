@@ -5,6 +5,9 @@ import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 import { Back, MyButton } from "../components/Button";
 import { Price, PricePeriod, PriceWrapper } from "../components/SharedComponent";
+import React, { useEffect } from "react";
+import useAuthStore from "../zustand/authStore";
+import { DASHBOARD_PAGE } from "../routes/routeConstant";
 
 const ImageZoom = styled.img`
   max-height: 90vh;
@@ -54,6 +57,16 @@ export default function ProductPage() {
   const product = products.find((p) => p.id === productId);
 
   const recomendedProducts = products.filter((p) => p.id !== productId);
+
+  const {user} = useAuthStore()
+
+  useEffect(()=>{
+    if(user){
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }
+    }
+  },[navigate, user])
 
   return (
     <>

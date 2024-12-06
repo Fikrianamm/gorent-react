@@ -12,6 +12,7 @@ import ChangePassProfilePage from "../pages/profile/ChangePassProfilePage";
 import VerificationAccountPage from "../pages/profile/VerificationAccountPage";
 import OrderPage from "../pages/OrderPage";
 import SearchPage from "../pages/SearchPage";
+import DashboardPage from "../pages/admin/DashboardPage";
 
 // Error
 export const ERROR_PAGE = "*";
@@ -43,6 +44,12 @@ export const ORDER_PAGE = "/order";
 
 // Search
 export const SEARCH_PAGE = "/search";
+
+// admin
+export const DASHBOARD_PAGE = "/admin/dashboard";
+export const ORDERADMIN_PAGE = "/admin/order";
+export const PRODUCTADMIN_PAGE = "/admin/product";
+export const CATEGORYADMIN_PAGE = "/admin/category";
 
 export const router = createBrowserRouter([
   {
@@ -96,5 +103,21 @@ export const router = createBrowserRouter([
   {
     path: SEARCH_PAGE,
     Component: SearchPage,
+  },
+  {
+    path: DASHBOARD_PAGE,
+    Component: DashboardPage,
+  },
+  {
+    path: ORDERADMIN_PAGE,
+    Component: DashboardPage,
+  },
+  {
+    path: PRODUCTADMIN_PAGE,
+    Component: DashboardPage,
+  },
+  {
+    path: CATEGORYADMIN_PAGE,
+    Component: DashboardPage,
   },
 ]);

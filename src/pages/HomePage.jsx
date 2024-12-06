@@ -8,6 +8,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import styled from "styled-components";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../zustand/authStore";
+import { DASHBOARD_PAGE } from "../routes/routeConstant";
 
 const TerlarisTitle = styled.div`
   background: #2d83b2;
@@ -33,6 +37,17 @@ const ScrollContainer = styled.div`
 `;
 
 export default function HomePage() {
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      if (user.Role === "admin") {
+        navigate(DASHBOARD_PAGE);
+      }
+    }
+  }, [navigate, user]);
+
   return (
     <div className="pb-5">
       <Topbar />

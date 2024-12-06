@@ -14,12 +14,15 @@ import {
 } from "react-bootstrap";
 import {
   CHANGEPASS_PAGE,
+  DASHBOARD_PAGE,
   EDITPROFILE_PAGE,
   VERIFICATION_PAGE,
 } from "../../routes/routeConstant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../zustand/authStore";
 
 const ProfileMenu = styled(Container)`
   margin-top: 2rem;
@@ -151,6 +154,9 @@ export default function VerificationAccountPage() {
   const [otp, setOtp] = useState("");
   const [ktpFile, setKtpFile] = useState(null);
 
+  const {user} = useAuthStore()
+  const navigate = useNavigate()
+
   const handleNext = () => {
     if (step < 2) setStep(step + 1);
   };
@@ -173,6 +179,14 @@ export default function VerificationAccountPage() {
       alert("Harap upload foto KTP.");
     }
   };
+
+  useEffect(()=>{
+    if(user){
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }
+    }
+  },[navigate, user])
 
   return (
     <>

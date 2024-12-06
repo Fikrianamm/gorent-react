@@ -5,7 +5,10 @@ import styled from "styled-components";
 import { IoIosArrowForward } from "react-icons/io";
 import { FiLock, FiUser, FiUserCheck } from "react-icons/fi";
 import { Col, Container } from "react-bootstrap";
-import { CHANGEPASS_PAGE, EDITPROFILE_PAGE, VERIFICATION_PAGE } from "../../routes/routeConstant";
+import { CHANGEPASS_PAGE, DASHBOARD_PAGE, EDITPROFILE_PAGE, VERIFICATION_PAGE } from "../../routes/routeConstant";
+import useAuthStore from "../../zustand/authStore";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const ProfileMenu = styled(Container)`
   margin-top: 2rem;
@@ -104,6 +107,17 @@ const Content = styled(Col)`
 `;
 
 export default function ChangePassProfilePage() {
+  const {user} = useAuthStore()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user){
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }
+    }
+  },[navigate, user])
+  
   return (
     <>
       <div className="d-none d-md-inline">

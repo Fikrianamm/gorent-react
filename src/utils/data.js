@@ -195,7 +195,7 @@ export const users = [
   {
     UserId: "user-001",
     Name: "Fikri",
-    Email: "user@example.com",
+    Email: "user@gmail.com",
     Password: "user", 
     Address: "Bae, Kudus",
     PhoneNumber: "081234567890",
@@ -207,14 +207,9 @@ export const users = [
   {
     UserId: "admin-001",
     Name: "Admin",
-    Email: "admin@example.com",
+    Email: "admin@gmail.com",
     Password: "admin", 
-    Address: "789 Pine Street, Surabaya",
-    PhoneNumber: "083456789012",
     Role: "admin", 
-    IsVerified: true,
-    KtpPhoto: null, 
-    ImgProfile: "https://ui-avatars.com/api/?name=Admin",
   },
 ]
 

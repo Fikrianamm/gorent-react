@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useAuthStore from "../../zustand/authStore";
 import { Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { HOME_PAGE } from "../../routes/routeConstant";
+import { DASHBOARD_PAGE, HOME_PAGE } from "../../routes/routeConstant";
 
 const Body = styled.div`
   min-height: 100vh;
@@ -86,13 +86,23 @@ export default function SignInPage() {
     } else {
       setError("");
       login(foundUser); 
-      navigate(HOME_PAGE)
+      console.log(user);
+      
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }else if (user.Role === "user"){
+        navigate(HOME_PAGE)
+      }
     }
   };
 
   useEffect(()=>{
     if(user){
-      navigate(HOME_PAGE)
+      if(user.Role === "admin"){
+        navigate(DASHBOARD_PAGE)
+      }else if(user.Role === "user"){
+        navigate(HOME_PAGE)
+      }
     }
   },[navigate, user])
 
