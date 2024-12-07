@@ -1,4 +1,4 @@
-import { Col, Container } from "react-bootstrap";
+import { Card, Col, Container } from "react-bootstrap";
 import styled from "styled-components";
 
 export const PageContainer = styled(Container)`
@@ -9,7 +9,6 @@ export const PageContainer = styled(Container)`
 `;
 
 export const AdminContainer = styled(Container)`
-  height: 200dvh;
   min-width: 100dvw;
   min-height: 100dvh;
   background-color: #eef5fa;
@@ -28,12 +27,23 @@ export const SidebarContainer = styled.div`
   overflow: auto;
 `;
 
-export const MainContentAdmin = styled(Col)`
+export const CardContainer = styled(Container)`
   padding: 1.5rem;
-  border-radius: 0.8rem;
   background-color: white;
+  border-radius: 0.8rem;
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.1);
-  min-height: 200dvh;
+  /* width: 100%;
+  height: 100%; */
+`;
+
+export const MainContentAdmin = styled(Col)`
+  height: max-content;
+`;
+
+export const TopItemsCard = styled(Card)`
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 export const Header = styled.div`
