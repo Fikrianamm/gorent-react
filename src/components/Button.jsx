@@ -26,14 +26,29 @@ const BorderBlueButton = styled(Button)`
 `;
 
 const BorderGreyButton = styled(Button)`
-  background-color: transparent;
-  border: 1px solid #e3e3e7;
-  transition: all 0.2s;
-  color: #666666;
-  
-  &:hover{
+  && {
+    border: 1px solid #e3e3e7;
+    transition: all 0.2s;
+    background-color: ${(props) => (props.active ? "#2D83B2" : "transparent")};
+    color: ${(props) => (props.active ? "white" : "#666666")};
+  }
+
+  &&&:hover {
     background-color: #e9f5fc;
     color: #2d83b2;
+  }
+`;
+
+const BorderRedButton = styled(Button)`
+  && {
+    border: 1px solid red;
+    transition: all 0.2s;
+    background-color: transparent;
+    color: red;
+  }
+
+  &&&:hover {
+    background-color: #fce9e9;
   }
 `;
 
@@ -191,6 +206,17 @@ export function MyButton({
         >
           {children}
         </BorderGreyButton>
+      );
+    case "border-red":
+      return (
+        <BorderRedButton
+          active={active}
+          type={type}
+          onClick={() => onClick()}
+          className={className}
+        >
+          {children}
+        </BorderRedButton>
       );
 
     default:

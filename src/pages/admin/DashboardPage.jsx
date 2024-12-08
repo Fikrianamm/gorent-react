@@ -9,7 +9,7 @@ import Congratulations from "../../components/Congaratulations";
 import TopItems from "../../components/TopItems";
 import CurrentRentals from "../../components/CurrentRentals";
 import RevenueOverview from "../../components/RevenueOverview";
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 export default function DashboardPage() {
   return (

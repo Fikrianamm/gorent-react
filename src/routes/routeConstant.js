@@ -13,6 +13,7 @@ import VerificationAccountPage from "../pages/profile/VerificationAccountPage";
 import OrderPage from "../pages/OrderPage";
 import SearchPage from "../pages/SearchPage";
 import DashboardPage from "../pages/admin/DashboardPage";
+import OrderAdminPage from "../pages/admin/OrderAdminPage";
 
 // Error
 export const ERROR_PAGE = "*";
@@ -110,7 +111,7 @@ export const router = createBrowserRouter([
   },
   {
     path: ORDERADMIN_PAGE,
-    Component: DashboardPage,
+    Component: OrderAdminPage,
   },
   {
     path: PRODUCTADMIN_PAGE,
