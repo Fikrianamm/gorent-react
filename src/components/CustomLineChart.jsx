@@ -13,13 +13,13 @@ import {
 
 // Data untuk grafik
 const data = [
-  { name: "Mon", processed: 12, pending: 8 },
-  { name: "Tue", processed: 15, pending: 10 },
-  { name: "Wed", processed: 18, pending: 12 },
-  { name: "Thu", processed: 20, pending: 8 },
-  { name: "Fri", processed: 25, pending: 5 },
-  { name: "Sat", processed: 28, pending: 7 },
-  { name: "Sun", processed: 30, pending: 4 },
+  { name: "Sen", processed: 12, pending: 8 },
+  { name: "Sel", processed: 15, pending: 10 },
+  { name: "Rab", processed: 18, pending: 12 },
+  { name: "Kam", processed: 20, pending: 8 },
+  { name: "Jum", processed: 25, pending: 5 },
+  { name: "Sab", processed: 28, pending: 7 },
+  { name: "Min", processed: 30, pending: 4 },
 ];
 
 // Styled-components untuk styling container
@@ -70,14 +70,14 @@ const CustomLineChart = () => {
     <ChartContainer>
       <ChartHeader>
         <div>
-          <h5>Total Orders</h5>
-          <span>Weekly order updates</span>
+          <h5>Total Pesanan</h5>
+          <span>Pembaruan pesanan mingguan</span>
         </div>
         <Dropdown>
-          <DropdownButton id="dropdown-basic">May 2024</DropdownButton>
+          <DropdownButton id="dropdown-basic">Mei 2024</DropdownButton>
           <DropdownMenu>
             <Dropdown.Item>April 2024</Dropdown.Item>
-            <Dropdown.Item>March 2024</Dropdown.Item>
+            <Dropdown.Item>Maret 2024</Dropdown.Item>
           </DropdownMenu>
         </Dropdown>
       </ChartHeader>

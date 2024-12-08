@@ -9,19 +9,17 @@ import Congratulations from "../../components/Congaratulations";
 import TopItems from "../../components/TopItems";
 import CurrentRentals from "../../components/CurrentRentals";
 import RevenueOverview from "../../components/RevenueOverview";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 export default function DashboardPage() {
   return (
     <AdminContainer>
-      <div className="d-lg-none">
-      </div>
       <div className="d-flex gap-3 p-3">
         <SidebarSticky />
 
         <MainContentAdmin>
           <CardContainer className="d-flex align-items-center d-lg-none mb-3 gap-3">
-            <Sidebar/> 
+            <Sidebar />
             <h5 className="m-0">Dashboard</h5>
           </CardContainer>
           <CardContainer className="d-lg-flex gap-2 mb-3">
@@ -32,12 +30,14 @@ export default function DashboardPage() {
               <CustomLineChart />
             </div>
           </CardContainer>
-          <Container className="d-flex flex-column flex-wrap flex-lg-row gap-3 p-0">
-            <div className="flex-grow-1">
-              <RevenueOverview />
-            </div>
-            <div className="flex-grow-1">
-              <TopItems />
+          <Container className="d-flex flex-column gap-3 p-0">
+            <div className="d-flex flex-column flex-md-row gap-3">
+              <div className="flex-grow-1">
+                <RevenueOverview />
+              </div>
+              <div className="flex-grow-1">
+                <TopItems />
+              </div>
             </div>
             <div className="flex-grow-1">
               <CurrentRentals />

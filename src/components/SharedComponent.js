@@ -32,12 +32,10 @@ export const CardContainer = styled(Container)`
   background-color: white;
   border-radius: 0.8rem;
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.1);
-  /* width: 100%;
-  height: 100%; */
 `;
 
-export const MainContentAdmin = styled(Col)`
-  height: max-content;
+export const MainContentAdmin = styled(Container)`
+  padding: 0;
 `;
 
 export const TopItemsCard = styled(Card)`

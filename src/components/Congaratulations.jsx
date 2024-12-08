@@ -60,17 +60,19 @@ const Illustration = styled(Image)`
 const Congratulations = () => {
   return (
     <Container>
-      <Row >
+      <Row>
         <Col md={8} className="w-100">
-          <Header>Congratulations Andar</Header>
-          <SubHeader>You have done 38% more sales</SubHeader>
+          <Header>Selamat Andar</Header>
+          <SubHeader>
+            Anda telah mencapai peningkatan penjualan sebesar 38%
+          </SubHeader>
           <OrderItem>
             <IconWrapper bgColor="#e0f7fa">
               <i className="bi bi-bag"></i>
             </IconWrapper>
             <OrderText>
-              <OrderCount>64 new orders</OrderCount>
-              <OrderStatus>Processing</OrderStatus>
+              <OrderCount>64 pesanan baru</OrderCount>
+              <OrderStatus>Sedang diproses</OrderStatus>
             </OrderText>
           </OrderItem>
           <OrderItem>
@@ -78,8 +80,8 @@ const Congratulations = () => {
               <i className="bi bi-hourglass-split"></i>
             </IconWrapper>
             <OrderText>
-              <OrderCount>4 orders</OrderCount>
-              <OrderStatus>On hold</OrderStatus>
+              <OrderCount>4 pesanan</OrderCount>
+              <OrderStatus>Ditahan</OrderStatus>
             </OrderText>
           </OrderItem>
           <OrderItem>
@@ -87,8 +89,8 @@ const Congratulations = () => {
               <i className="bi bi-check-circle"></i>
             </IconWrapper>
             <OrderText>
-              <OrderCount>12 orders</OrderCount>
-              <OrderStatus>Delivered</OrderStatus>
+              <OrderCount>12 pesanan</OrderCount>
+              <OrderStatus>Terkirim</OrderStatus>
             </OrderText>
           </OrderItem>
         </Col>

@@ -12,14 +12,14 @@ const TopItems = () => {
   ];
 
   return (
-    <CardContainer>
-      <h5>Top Rented Items</h5>
+    <CardContainer className="h-100">
+      <h5>Barang Paling Banyak Disewa</h5>
       <Table responsive>
         <thead>
           <tr>
             <th>#</th>
-            <th>Item</th>
-            <th>Rentals</th>
+            <th>Barang</th>
+            <th>Penyewaan</th>
           </tr>
         </thead>
         <tbody>

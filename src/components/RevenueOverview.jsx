@@ -1,26 +1,72 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { CardContainer } from "./SharedComponent";
+import { Card } from "react-bootstrap";
+import styled from "styled-components";
 
 const revenueData = [
-  { day: "Mon", revenue: 500 },
-  { day: "Tue", revenue: 800 },
-  { day: "Wed", revenue: 600 },
-  { day: "Thu", revenue: 700 },
-  { day: "Fri", revenue: 1000 },
-  { day: "Sat", revenue: 1100 },
-  { day: "Sun", revenue: 900 },
+  { day: "Sen", pendapatan: 500 },
+  { day: "Sel", pendapatan: 800 },
+  { day: "Rab", pendapatan: 600 },
+  { day: "Kam", pendapatan: 700 },
+  { day: "Jum", pendapatan: 1000 },
+  { day: "Sab", pendapatan: 1100 },
+  { day: "Min", pendapatan: 900 },
 ];
+
+const ChartHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  span {
+    font-size: 14px;
+    color: #6c757d;
+  }
+`;
+
+const ChartContent = styled.div`
+  width: 100%;
+  height: 300px;
+`;
 
 const RevenueOverview = () => (
   <CardContainer>
-    <h5>Revenue Overview</h5>
-    <LineChart width={400} height={250} data={revenueData}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="day" />
-      <YAxis />
-      <Tooltip />
-      <Line type="monotone" dataKey="revenue" stroke="#82ca9d" />
-    </LineChart>
+      <ChartHeader>
+        <div>
+          <h5>Tinjauan Pendapatan</h5>
+          <span>Pembaruan pendapatan harian</span>
+        </div>
+      </ChartHeader>
+
+      <ChartContent>
+        <ResponsiveContainer>
+          <LineChart
+            data={revenueData}
+            margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="day" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="pendapatan" stroke="#82ca9d" />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartContent>
   </CardContainer>
 );
 

@@ -2,20 +2,20 @@ import { Table } from "react-bootstrap";
 import { CardContainer } from "./SharedComponent";
 
 const currentRentalsData = [
-    { item: "Laptop Dell XPS", customer: "John Doe", returnDate: "10 Dec 2024" },
-    { item: "Canon DSLR Camera", customer: "Jane Smith", returnDate: "12 Dec 2024" },
-    { item: "iPad Pro", customer: "Tom Hardy", returnDate: "15 Dec 2024" },
+    { item: "Laptop Dell XPS", customer: "Fahris", returnDate: "10 Des 2024" },
+    { item: "Canon DSLR Camera", customer: "Sulthon", returnDate: "12 Des 2024" },
+    { item: "iPad Pro", customer: "Firman", returnDate: "15 Des 2024" },
   ];
   
   const CurrentRentals = () => (
     <CardContainer>
-      <h5>Current Rentals</h5>
+      <h5>Penyewaan Saat Ini</h5>
       <Table responsive>
         <thead>
           <tr>
-            <th>Item</th>
+            <th>Barang</th>
             <th>Customer</th>
-            <th>Return Date</th>
+            <th>Tanggal Kembali</th>
           </tr>
         </thead>
         <tbody>
