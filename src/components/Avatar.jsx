@@ -4,27 +4,19 @@ import { LinkContainer } from "react-router-bootstrap";
 import styled from "styled-components";
 import { MyButton } from "./Button";
 import useAuthStore from "../zustand/authStore";
-
-export const ImgProfile = styled.img`
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 50%;
-  background-color: transparent;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.5s ease-in-out;
-
-  &:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-`;
+import { HOME_PAGE } from "../routes/routeConstant";
+import { useNavigate } from "react-router-dom";
+import { ImgProfile } from "./SharedComponent";
 
 export function ModalSignOut(props) {
   const { logout } = useAuthStore();
+  const navigate = useNavigate()
 
   function handleSignOut() {
     logout();
     props.onHide();
+    navigate(HOME_PAGE)
+
   }
 
   return (

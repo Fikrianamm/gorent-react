@@ -4,12 +4,12 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import React from "react";
 import styled from "styled-components";
 import { MdOutlineDashboard } from "react-icons/md";
-import { SidebarContainer } from "./SharedComponent";
+import { ImgProfile, SidebarContainer } from "./SharedComponent";
 import Logo from "./Logo";
 import { MyButton } from "./Button";
 import { FiBox, FiShoppingBag } from "react-icons/fi";
 import { BsBoxSeam } from "react-icons/bs";
-import { ImgProfile, ModalSignOut } from "./Avatar";
+import { ModalSignOut } from "./Avatar";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   CATEGORYADMIN_PAGE,

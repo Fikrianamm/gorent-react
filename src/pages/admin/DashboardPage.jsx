@@ -10,8 +10,22 @@ import TopItems from "../../components/TopItems";
 import CurrentRentals from "../../components/CurrentRentals";
 import RevenueOverview from "../../components/RevenueOverview";
 import { Container } from "react-bootstrap";
+import { useEffect } from "react";
+import useAuthStore from "../../zustand/authStore";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardPage() {
+  const { user } = useAuthStore()
+  const navigate = useNavigate()
+  
+  useEffect(() => {
+    if (user) {
+      if (user.Role === "user") {
+        navigate(ERROR_PAGE);
+      }
+    }
+  }, [navigate, user]);
+
   return (
     <AdminContainer>
       <div className="d-flex gap-3 p-3">

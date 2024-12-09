@@ -1,4 +1,4 @@
-import { Card, Col, Container } from "react-bootstrap";
+import { Card, Col, Container, Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 
 export const PageContainer = styled(Container)`
@@ -42,6 +42,54 @@ export const TopItemsCard = styled(Card)`
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+export const SearchContainer = styled.div`
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 8px 16px;
+`;
+
+export const SearchInput = styled.input`
+  border: none;
+  background: transparent;
+  width: 100%;
+  outline: none;
+  padding: 4px;
+`;
+
+export const ImgProfile = styled.img`
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+export const StyledToggle = styled(Dropdown.Toggle)`
+  background: transparent !important;
+  border: none !important;
+  padding: 2px;
+  color: black;
+
+  &:after {
+    color: black;
+    display: none;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: black;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
 `;
 
 export const Header = styled.div`

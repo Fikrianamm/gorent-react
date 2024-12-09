@@ -14,6 +14,7 @@ import OrderPage from "../pages/OrderPage";
 import SearchPage from "../pages/SearchPage";
 import DashboardPage from "../pages/admin/DashboardPage";
 import OrderAdminPage from "../pages/admin/OrderAdminPage";
+import ProductAdminPage from "../pages/admin/ProductAdminPage";
 
 // Error
 export const ERROR_PAGE = "*";
@@ -115,7 +116,7 @@ export const router = createBrowserRouter([
   },
   {
     path: PRODUCTADMIN_PAGE,
-    Component: DashboardPage,
+    Component: ProductAdminPage,
   },
   {
     path: CATEGORYADMIN_PAGE,

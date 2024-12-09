@@ -11,6 +11,7 @@ import useProductStore from "../zustand/productStore";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ORDER_PAGE, SIGNIN_PAGE, SIGNUP_PAGE } from "../routes/routeConstant";
 import useAuthStore from "../zustand/authStore";
+import { SearchContainer, SearchInput, StyledToggle } from "./SharedComponent";
 
 const CategoryWrapper = styled.div`
   display: none;
@@ -34,26 +35,6 @@ const StyledDropdown = styled(Dropdown)`
   }
 `;
 
-const StyledToggle = styled(Dropdown.Toggle)`
-  background: transparent !important;
-  border: none !important;
-  padding: 2px;
-  color: black;
-
-  &:after {
-    color: black;
-    display: none;
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: black;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-`;
-
 const DropdownItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,20 +45,6 @@ const StyledOption = styled(Dropdown.Item)`
     background-color: #f8f9fa;
   }
   padding: 8px 12px;
-`;
-
-const SearchContainer = styled.div`
-  background: #f5f5f5;
-  border-radius: 8px;
-  padding: 8px 16px;
-`;
-
-const SearchInput = styled.input`
-  border: none;
-  background: transparent;
-  width: 100%;
-  outline: none;
-  padding: 4px;
 `;
 
 function Kategori() {

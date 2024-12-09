@@ -52,7 +52,6 @@ export default function OrderAdminPage() {
             <h5 className="m-0">Order</h5>
           </CardContainer>
           <CardContainer>
-              <h4 className="d-none d-md-inline">Daftar Order</h4>
               {/* Input Search */}
               <InputGroup className="my-3">
                 <Form.Control
