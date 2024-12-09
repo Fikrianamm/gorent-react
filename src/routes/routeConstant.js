@@ -15,6 +15,8 @@ import SearchPage from "../pages/SearchPage";
 import DashboardPage from "../pages/admin/DashboardPage";
 import OrderAdminPage from "../pages/admin/OrderAdminPage";
 import ProductAdminPage from "../pages/admin/ProductAdminPage";
+import ProductAddPage from "../pages/admin/ProductAddPage";
+import ProductEditPage from "../pages/admin/ProductEditPage";
 
 // Error
 export const ERROR_PAGE = "*";
@@ -51,6 +53,8 @@ export const SEARCH_PAGE = "/search";
 export const DASHBOARD_PAGE = "/admin/dashboard";
 export const ORDERADMIN_PAGE = "/admin/order";
 export const PRODUCTADMIN_PAGE = "/admin/product";
+export const PRODUCTADD_PAGE = "/admin/product/add";
+export const PRODUCTEDIT_PAGE = "/admin/product/:productId/edit";
 export const CATEGORYADMIN_PAGE = "/admin/category";
 
 export const router = createBrowserRouter([
@@ -117,6 +121,14 @@ export const router = createBrowserRouter([
   {
     path: PRODUCTADMIN_PAGE,
     Component: ProductAdminPage,
+  },
+  {
+    path: PRODUCTADD_PAGE,
+    Component: ProductAddPage,
+  },
+  {
+    path: PRODUCTEDIT_PAGE,
+    Component: ProductEditPage,
   },
   {
     path: CATEGORYADMIN_PAGE,

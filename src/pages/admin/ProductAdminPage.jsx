@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../zustand/authStore";
-import { ERROR_PAGE } from "../../routes/routeConstant";
+import { ERROR_PAGE, PRODUCTADD_PAGE } from "../../routes/routeConstant";
 import {
   Button,
   Dropdown,
@@ -48,15 +48,6 @@ const CustomButtonFloat = styled(Button)`
 export default function ProductAdminPage() {
   const navigate = useNavigate();
   const { user } = useAuthStore();
-  const [drop, setDrop] = useState(false);
-
-  const handleMouseEnter = () => {
-    setDrop(true);
-  };
-
-  const handleMouseLeave = () => {
-    setDrop(false);
-  };
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -92,12 +83,7 @@ export default function ProductAdminPage() {
                   </Button>
                 </Form>
               </SearchContainer>
-              <Dropdown
-                align={"end"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                className="d-lg-none d-inline"
-              >
+              <Dropdown align={"end"} className="d-lg-none d-inline">
                 <StyledToggle className="h-100 p-0">
                   <Button variant="light" className="h-100">
                     <i className="bi bi-filter"></i>
@@ -131,7 +117,10 @@ export default function ProductAdminPage() {
                   </option>
                 ))}
               </Form.Select>
-              <MyButton className={"d-flex align-items-center gap-2"}>
+              <MyButton
+                onClick={() => navigate(PRODUCTADD_PAGE)}
+                className={"d-flex align-items-center gap-2"}
+              >
                 <FaPlus />
                 Tambah produk
               </MyButton>
@@ -151,7 +140,7 @@ export default function ProductAdminPage() {
               delay={{ show: 250, hide: 400 }}
               overlay={renderTooltip}
             >
-              <CustomButtonFloat>
+              <CustomButtonFloat onClick={() => navigate(PRODUCTADD_PAGE)}>
                 <GoPlusCircle size={24} />
               </CustomButtonFloat>
             </OverlayTrigger>

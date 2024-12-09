@@ -144,7 +144,7 @@ export function ProductCardAdmin({ product }) {
             <PricePeriod>/hari</PricePeriod>
           </PriceWrapper>
           <RatingWrapper className="gap-2 mt-2">
-            <Button onClick={()=>navigate(`/admin/product/${product.id}`)} variant="outline-secondary" className={"w-100"}>
+            <Button onClick={()=>navigate(`/admin/product/${product.id}/edit`)} variant="outline-secondary" className={"w-100"}>
               Edit
             </Button>
             <MyButton
