@@ -10,9 +10,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../zustand/authStore";
 import { ERROR_PAGE, PRODUCTADD_PAGE } from "../../routes/routeConstant";
-import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { categories, products } from "../../utils/data";
-import { ProductCardAdmin } from "../../components/ProductCard";
+import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { categories } from "../../utils/data";
 import styled from "styled-components";
 import { GoPlusCircle } from "react-icons/go";
 import { MyButton } from "../../components/Button";
@@ -33,7 +32,7 @@ const CustomButtonFloat = styled(Button)`
   align-items: center;
   background-color: #2d83b2;
   border: none;
-  transition: all .3s;
+  transition: all 0.3s;
 
   &:hover {
     background-color: #2a79a3;
@@ -42,9 +41,47 @@ const CustomButtonFloat = styled(Button)`
   }
 `;
 
+function ModalAddCategory(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Tambah Kategori
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group controlId="categoryName">
+            <Form.Label className="fw-semibold">Nama Kategori</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Masukkan Nama Kategori"
+              required
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <div className="d-flex gap-2">
+          <Button variant="outline-secondary" onClick={props.onHide}>
+            Kembali
+          </Button>
+          <MyButton>Tambah</MyButton>
+        </div>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 export default function CategoryAdminPage() {
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const [modalAddCategory, setModalAddCategory] = useState(false);
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -71,7 +108,7 @@ export default function CategoryAdminPage() {
             <h5 className="m-0">Kategori</h5>
           </CardContainer>
           <CardContainer className="d-flex flex-column">
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-3">
               <SearchContainer className="flex-grow-1">
                 <Form className="d-flex align-items-center">
                   <SearchInput type="text" placeholder="Cari Kategori" />
@@ -80,12 +117,19 @@ export default function CategoryAdminPage() {
                   </Button>
                 </Form>
               </SearchContainer>
+              <MyButton
+                onClick={() => setModalAddCategory(true)}
+                className={"d-lg-flex d-none align-items-center gap-2"}
+              >
+                <FaPlus />
+                Tambah kategori
+              </MyButton>
             </div>
             <strong className="m-2 mt-3">{categories.length} Kategori</strong>
             <div className="d-flex flex-column gap-2">
-                {categories.map((category)=>(
-                    <CategoryCard category={category} key={category.id}/>
-                ))}
+              {categories.map((category) => (
+                <CategoryCard category={category} key={category.id} />
+              ))}
             </div>
           </CardContainer>
           <ButtonPlus className="d-lg-none">
@@ -94,13 +138,17 @@ export default function CategoryAdminPage() {
               delay={{ show: 250, hide: 400 }}
               overlay={renderTooltip}
             >
-              <CustomButtonFloat onClick={() => navigate(PRODUCTADD_PAGE)}>
+              <CustomButtonFloat onClick={() => setModalAddCategory(true)}>
                 <GoPlusCircle size={24} />
               </CustomButtonFloat>
             </OverlayTrigger>
           </ButtonPlus>
         </MainContentAdmin>
       </div>
+      <ModalAddCategory
+        show={modalAddCategory}
+        onHide={() => setModalAddCategory(false)}
+      />
     </AdminContainer>
   );
 }
