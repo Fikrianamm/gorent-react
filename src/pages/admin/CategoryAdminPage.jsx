@@ -5,25 +5,19 @@ import {
   MainContentAdmin,
   SearchContainer,
   SearchInput,
-  StyledToggle,
 } from "../../components/SharedComponent";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../zustand/authStore";
 import { ERROR_PAGE, PRODUCTADD_PAGE } from "../../routes/routeConstant";
-import {
-  Button,
-  Dropdown,
-  Form,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { categories, products } from "../../utils/data";
 import { ProductCardAdmin } from "../../components/ProductCard";
 import styled from "styled-components";
 import { GoPlusCircle } from "react-icons/go";
 import { MyButton } from "../../components/Button";
 import { FaPlus } from "react-icons/fa";
+import CategoryCard from "../../components/CategoryCard";
 
 const ButtonPlus = styled.div`
   position: fixed;
@@ -39,7 +33,7 @@ const CustomButtonFloat = styled(Button)`
   align-items: center;
   background-color: #2d83b2;
   border: none;
-  transition: all 0.3s;
+  transition: all .3s;
 
   &:hover {
     background-color: #2a79a3;
@@ -48,13 +42,13 @@ const CustomButtonFloat = styled(Button)`
   }
 `;
 
-export default function ProductAdminPage() {
+export default function CategoryAdminPage() {
   const navigate = useNavigate();
   const { user } = useAuthStore();
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      Tambah produk
+      Tambah kategori
     </Tooltip>
   );
 
@@ -74,67 +68,24 @@ export default function ProductAdminPage() {
         <MainContentAdmin>
           <CardContainer className="d-flex align-items-center d-lg-none mb-3 gap-3">
             <Sidebar />
-            <h5 className="m-0">Produk</h5>
+            <h5 className="m-0">Kategori</h5>
           </CardContainer>
           <CardContainer className="d-flex flex-column">
             <div className="d-flex gap-2">
               <SearchContainer className="flex-grow-1">
                 <Form className="d-flex align-items-center">
-                  <SearchInput type="text" placeholder="Cari Produk" />
+                  <SearchInput type="text" placeholder="Cari Kategori" />
                   <Button type="submit" className="bg-transparent p-0 border-0">
                     <i className="bi bi-search me-2 text-muted"></i>
                   </Button>
                 </Form>
               </SearchContainer>
-              <Dropdown align={"end"} className="d-lg-none d-inline">
-                <StyledToggle className="h-100 p-0">
-                  <Button variant="light" className="h-100">
-                    <i className="bi bi-filter"></i>
-                  </Button>
-                </StyledToggle>
-
-                <Dropdown.Menu>
-                  <div>
-                    <Dropdown.Item
-                      onClick={() => {
-                        setCategory(null);
-                      }}
-                    >
-                      Semua
-                    </Dropdown.Item>
-                    {categories.map((category) => (
-                      <Dropdown.Item key={category.id}>
-                        {category.name}
-                      </Dropdown.Item>
-                    ))}
-                  </div>
-                </Dropdown.Menu>
-              </Dropdown>
             </div>
-            <div className="d-lg-flex d-none justify-content-between gap-3 mt-3">
-              <Form.Select className="w-50">
-                <option value={""}>Pilih kategori</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.name}>
-                    {category.name}
-                  </option>
+            <strong className="m-2 mt-3">{categories.length} Kategori</strong>
+            <div className="d-flex flex-column gap-2">
+                {categories.map((category)=>(
+                    <CategoryCard category={category} key={category.id}/>
                 ))}
-              </Form.Select>
-              <MyButton
-                onClick={() => navigate(PRODUCTADD_PAGE)}
-                className={"d-flex align-items-center gap-2"}
-              >
-                <FaPlus />
-                Tambah produk
-              </MyButton>
-            </div>
-            <strong className="m-2 mt-3">{products.length} Produk</strong>
-            <div className="row g-3">
-              {products.map((product) => (
-                <div key={product.id} className="col-6 col-md-4 col-lg-3">
-                  <ProductCardAdmin product={product} />
-                </div>
-              ))}
             </div>
           </CardContainer>
           <ButtonPlus className="d-lg-none">
