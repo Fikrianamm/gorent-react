@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../zustand/authStore";
-import { ERROR_PAGE, PRODUCTADD_PAGE } from "../../routes/routeConstant";
+import { ERROR_PAGE } from "../../routes/routeConstant";
 import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { categories } from "../../utils/data";
 import styled from "styled-components";

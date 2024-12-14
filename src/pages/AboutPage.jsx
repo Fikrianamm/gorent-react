@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Topbar from "../components/Topbar";
 import { Back } from "../components/Button";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import Logo from "../components/Logo";
 import { LuBuilding2, LuRocket, LuTarget, LuUsers } from "react-icons/lu";
 import { Header, PageContainer } from "../components/SharedComponent";
@@ -85,7 +85,7 @@ export default function AboutPage() {
       <div className="d-none d-md-inline">
         <Topbar />
       </div>
-      <PageContainer>
+      <Container className="mt-lg-5 mt-4">
         {/* Header */}
         <Header className="d-md-none">
           <Back />
@@ -219,7 +219,7 @@ export default function AboutPage() {
         ))}
       </Row>
 
-      </PageContainer>
+      </Container>
     </>
   );
 }

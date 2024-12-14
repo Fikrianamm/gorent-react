@@ -13,6 +13,7 @@ import { Container } from "react-bootstrap";
 import { useEffect } from "react";
 import useAuthStore from "../../zustand/authStore";
 import { useNavigate } from "react-router-dom";
+import { ERROR_PAGE } from "../../routes/routeConstant";
 
 export default function DashboardPage() {
   const { user } = useAuthStore()
